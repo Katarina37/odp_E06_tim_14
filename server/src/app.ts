@@ -16,6 +16,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+
 // Repositories
 const userRepository: IUserRepository = new UserRepository();
 
@@ -28,6 +29,9 @@ const authController = new AuthController(authService);
 const userController = new UserController(userService);
 // Registering routes
 app.use('/api/v1', authController.getRouter());
+console.log("Auth routes registred");
 app.use('/api/v1', userController.getRouter());
+
+console.log(authController.getRouter().stack.map(r => r.route && r.route.path));
 
 export default app;
