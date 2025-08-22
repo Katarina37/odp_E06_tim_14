@@ -48,12 +48,12 @@ export function RegistracijaForma({ authApi } : AuthFormProps) {
                 placeholder="Lozinka"
                 value={lozinka}
                 onChange={(e) => setLozinka(e.target.value)}
-                className="w-full bg-white/40 px-4 py-2 rounded xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="w-full bg-white/40 px-4 py-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
                 />
                 <select
                 value={uloga}
                 onChange={(e) => setUloga(e.target.value)}
-                className="w-full bg-white/40 px-4 py-2 rounded xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="w-full bg-white/40 px-4 py-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
                 >
                     <option value="korisnik">Korisnik</option>
                     <option value="administrator">Administrator</option>
