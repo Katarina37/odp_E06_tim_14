@@ -1,0 +1,26 @@
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { PročitajVrijednostPoKljuču } from "../../helpers/local_storage";
+import { useAuth } from "../../hooks/auth/useAuthHook";
+import { InformacijeOKorisniku } from "../../components/kontrolna_tabla/InformacijeOKorisniku/InformacijeOKorisniku";
+
+
+export default function KontrolnaTablaKorisnikStranica() {
+    const { isAuthenticated, logout } = useAuth();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const token = PročitajVrijednostPoKljuču("authToken");
+
+        if(!isAuthenticated || !token){
+            logout();
+            navigate("/login");
+        }
+    }, [isAuthenticated, logout, navigate]);
+
+    return (
+    <main className="min-h-screen bg-gradient-to-tr from-slate-600/75 to-orange-800/70 flex items-center justify-center">
+      <InformacijeOKorisniku />
+    </main>
+    );
+}
