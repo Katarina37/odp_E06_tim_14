@@ -10,39 +10,45 @@ export const authApi: IAuthAPIService = {
     console.log("payload: ", {username, lozinka});
     try {
       const res = await axios.post<AuthResponse>(`${API_URL}/login`, { username, lozinka });
+      const {token, user} = res.data;
 
       // sada res.data.data je JWT string
-      const token = res.data.data as string;
-      console.log("axios odg", res);
+      /*console.log("axios odg", res);
       console.log("res data", res.data);
-      console.log("token", token);
+      console.log("token", token);*/
 
       return {
         success: res.data.success,
         message: res.data.message,
-        data: token,
+        token,
+        user,
       };
     } catch (error) {
       let message = "Greška prilikom prijave.";
       if (axios.isAxiosError(error)) {
         message = error.response?.data?.message || message;
       }
-      return { success: false, message, data: undefined };
+      return { success: false, message, token: undefined, user: undefined };
     }
   },
 
   async registracija(username: string, lozinka: string, uloga: string): Promise<AuthResponse> {
     try {
       const res = await axios.post<AuthResponse>(`${API_URL}/register`, { username, lozinka, uloga });
-      const token = res.data.data as string;
+      const {token, user} = res.data;
 
-      return { success: res.data.success, message: res.data.message, data: token };
+      return { 
+        success: res.data.success, 
+        message: res.data.message, 
+        token,
+        user,
+      };
     } catch (error) {
       let message = "Greška prilikom registracije.";
       if (axios.isAxiosError(error)) {
         message = error.response?.data?.message || message;
       }
-      return { success: false, message, data: undefined };
+      return { success: false, message, token: undefined, user:undefined };
     }
   },
 };

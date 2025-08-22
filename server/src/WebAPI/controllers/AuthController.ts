@@ -36,7 +36,17 @@ export class AuthController {
           { expiresIn: '6h' }
         );
 
-        res.status(200).json({ success: true, message: 'Uspešna prijava', data: token });
+        /*res.status(200).json({ success: true, message: 'Uspešna prijava', data: token });*/
+        res.status(200).json({
+          success: true,
+          message: 'Uspešna prijava',
+          token,
+          user: {
+            user_id: user.user_id,
+            username: user.username,
+            uloga: user.uloga,
+          },
+        });
         return;
       } else {
         res.status(401).json({ success: false, message: 'Neispravno korisničko ime ili lozinka' });
@@ -64,7 +74,18 @@ export class AuthController {
           { expiresIn: '6h' }
         );
 
-        res.status(201).json({ success: true, message: 'Uspešna registracija', data: token });
+        /*res.status(201).json({ success: true, message: 'Uspešna registracija', data: token });*/
+        res.status(201).json({
+          success:true,
+          message: "Uspešna registracija",
+          token,
+          user:{
+            user_id: user.user_id,
+            username: user.username,
+            uloga: user.uloga
+          }
+        });
+        
       } else {
         res.status(401).json({ success: false, message: 'Registracija nije uspela. Korisničko ime već postoji.' });
       }
