@@ -41,7 +41,7 @@ export function PrijavaForma({ authApi}: AuthFormProps){
     };
 
     return (
-        <div className="bg-white/30 backdrop-blur-lg shadow-md rounded-2xl p-10 w-full max-w-md border border-blue-400">
+        <div className="bg-gradient-to-br from-white/70 via-purple-200/50 to-purple-400/50 backdrop-blur-lg shadow-md rounded-2xl p-10 w-full max-w-md border border-blue-400">
             <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">Prijava</h1>
             <form onSubmit={podnesiFormu} className="space-y-4">
                 <input
@@ -61,13 +61,13 @@ export function PrijavaForma({ authApi}: AuthFormProps){
                 {greska && <p className="text-md text-center text-red-700/80 font-medium"> {greska}</p>}
                 <button
                 type="submit"
-                className="w-full bg-blue-700/70 hover:bg-blue-700/90 text-white py-2 rounded-xl transition">
+                className="w-full bg-purple-800 hover:bg-purple-900 text-white py-2 rounded-xl transition-colors duration-300 cursor-pointer">
                     Prijavi se
                 </button>
             </form>
             <p className="text-center text-sm mt-4">
                 Nemate nalog? {" "}
-                <Link to="/register" className="text-blue-700 hover:underline">
+                <Link to="/register" className="text-purple-800 hover:text-purple-900 hover:underline transition-colors duration-300">
                 Registrujte se 
                 </Link>
             </p>
