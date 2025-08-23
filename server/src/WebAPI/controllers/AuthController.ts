@@ -65,7 +65,7 @@ export class AuthController {
         return;
       }
 
-      const user = await this.authService.registracija(username, uloga, lozinka);
+      const user = await this.authService.registracija(username, lozinka, uloga);
 
       if (user.user_id !== 0) {
         const token = jwt.sign(

@@ -19,7 +19,7 @@ export class AuthService implements IAuthService {
         return new UserAuthDataDto();
     }
 
-    async registracija(username: string, uloga: string,  lozinka: string): Promise<UserAuthDataDto> {
+    async registracija(username: string,  lozinka: string, uloga: string): Promise<UserAuthDataDto> {
         const existingUser = await this.userRepository.getByUsername(username);
 
         if(existingUser.user_id !== 0){

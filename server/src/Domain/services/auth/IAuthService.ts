@@ -16,5 +16,5 @@ export interface IAuthService {
    * @param uloga - Uloga korisnika u sistemu
    * @returns Podatke o korisniku ako je registracija uspešna, ili prazan objekat ako nije.
   */
-  registracija(username: string, uloga: string, lozinka: string): Promise<UserAuthDataDto>;
+  registracija(username: string, lozinka: string, uloga: string): Promise<UserAuthDataDto>;
 }
