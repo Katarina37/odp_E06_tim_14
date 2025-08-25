@@ -7,35 +7,42 @@ export class UserRepository implements IUserRepository {
   async create(user: User): Promise<User> {
     try {
       const query = `
-        INSERT INTO users (username, uloga, lozinka)
+        INSERT INTO users (username, lozinka, uloga) 
         VALUES (?, ?, ?)
       `;
 
       const [result] = await db.execute<ResultSetHeader>(query, [
         user.username,
+        user.lozinka,
         user.uloga,
-        user.lozinka, // lozinka je već hashirana iz AuthService
       ]);
 
+
       if (result.insertId) {
-        return new User(result.insertId, user.username, user.uloga, user.lozinka);
+        // Vraćamo novog korisnika sa dodeljenim ID-om
+        return new User(result.insertId, user.username,user.uloga, user.lozinka);
       }
 
+      // Vraćamo prazan objekat ako kreiranje nije uspešno
       return new User();
-    } catch (error) {
-      console.error("Error creating user:", error);
+    } catch {
       return new User();
     }
   }
 
   async getById(user_id: number): Promise<User> {
     try {
-      const query = `SELECT * FROM users WHERE user_id = ?`;
+      const query = `
+        SELECT user_id, username, lozinka, uloga 
+        FROM users 
+        WHERE user_id = ?
+      `;
+
       const [rows] = await db.execute<RowDataPacket[]>(query, [user_id]);
 
       if (rows.length > 0) {
         const row = rows[0];
-        return new User(row.user_id, row.username, row.uloga, row.lozinka);
+        return new User(row.user_id, row.username,row.uloga,  row.lozinka);
       }
 
       return new User();
@@ -47,8 +54,8 @@ export class UserRepository implements IUserRepository {
   async getByUsername(username: string): Promise<User> {
     try {
       const query = `
-        SELECT user_id, username, uloga, lozinka
-        FROM users
+        SELECT user_id, username, uloga, lozinka 
+        FROM users 
         WHERE username = ?
       `;
 
@@ -60,19 +67,23 @@ export class UserRepository implements IUserRepository {
       }
 
       return new User();
-    } catch (error) {
-      console.log("Error getting user by username:", error);
+    } catch {
       return new User();
     }
   }
 
   async getAll(): Promise<User[]> {
     try {
-      const query = `SELECT * FROM users ORDER BY user_id ASC`;
+      const query = `
+        SELECT user_id, username, lozinka, uloga
+        FROM users 
+        ORDER BY user_id ASC
+      `;
+
       const [rows] = await db.execute<RowDataPacket[]>(query);
 
       return rows.map(
-        (row) => new User(row.user_id, row.username, row.uloga, row.lozinka)
+        (row) => new User(row.user_id, row.username,row.uloga, row.lozinka)
       );
     } catch {
       return [];
@@ -82,14 +93,15 @@ export class UserRepository implements IUserRepository {
   async update(user: User): Promise<User> {
     try {
       const query = `
-        UPDATE users
-        SET username = ?, lozinka = ?
+        UPDATE users 
+        SET username = ?, lozinka = ?, uloga = ?
         WHERE user_id = ?
       `;
 
       const [result] = await db.execute<ResultSetHeader>(query, [
         user.username,
         user.lozinka,
+        user.uloga,
         user.user_id,
       ]);
 
@@ -105,8 +117,13 @@ export class UserRepository implements IUserRepository {
 
   async delete(user_id: number): Promise<boolean> {
     try {
-      const query = `DELETE FROM users WHERE user_id = ?`;
+      const query = `
+        DELETE FROM users 
+        WHERE user_id = ?
+      `;
+
       const [result] = await db.execute<ResultSetHeader>(query, [user_id]);
+
       return result.affectedRows > 0;
     } catch {
       return false;
@@ -115,8 +132,14 @@ export class UserRepository implements IUserRepository {
 
   async exists(user_id: number): Promise<boolean> {
     try {
-      const query = `SELECT COUNT(*) as count FROM users WHERE user_id = ?`;
+      const query = `
+        SELECT COUNT(*) as count 
+        FROM users 
+        WHERE user_id = ?
+      `;
+
       const [rows] = await db.execute<RowDataPacket[]>(query, [user_id]);
+
       return rows[0].count > 0;
     } catch {
       return false;

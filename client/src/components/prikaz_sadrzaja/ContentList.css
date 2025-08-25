@@ -1,0 +1,89 @@
+/* Pozadina stranice */
+.content-page {
+  background-color: #1f2937; /* tamnosiva */
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* Header sa pretragom i dugmetom */
+.content-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.search-icon {
+  font-size: 18px;
+  color: #999;
+}
+
+/* Input za pretragu */
+.search-input {
+  flex: 1; /* zauzima sav preostali prostor */
+  padding: 12px 15px;
+  font-size: 16px;
+  border-radius: 25px;
+  border: 1px solid #ccc;
+  outline: none;
+  min-width: 0; /* bitno za fleks kontejnere */
+}
+
+/* Dugme prijavi se */
+.login-button {
+  flex: 0 0 auto; /* NE raste, NE skuplja se */
+  width: 120px; /* fiksna širina */
+  padding: 10px 20px;
+  font-size: 14px;
+  background-color: #facc15; /* žuta */
+  color: #000;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.login-button:hover {
+  background-color: #eab308; /* tamnija žuta na hover */
+}
+
+/* Grid kartica */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+}
+
+/* Kartica */
+.card {
+  background-color: #374151; /* svjetlija od pozadine */
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Slika unutar kartice */
+.card img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover; /* cijela slika unutar okvira */
+}
+
+/* Info o kartici */
+.card-info {
+  padding: 10px;
+  color: #f9fafb;
+}
+
+.card-info h3 {
+  margin: 0 0 5px 0;
+  font-size: 18px;
+}
+
+.card-info p {
+  margin: 0;
+  font-size: 14px;
+  color: #d1d5db;
+}

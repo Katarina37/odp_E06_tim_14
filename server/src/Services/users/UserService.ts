@@ -4,10 +4,11 @@ import { IUserRepository } from "../../Domain/repositories/users/IUserRepository
 import { IUserService } from "../../Domain/services/users/IUserService";
 
 export class UserService implements IUserService {
-    public constructor(private userRepository: IUserRepository){}
+    public constructor(private userRepository: IUserRepository) {}
 
     async getSviKorisnici(): Promise<UserDto[]> {
         const korisnici: User[] = await this.userRepository.getAll();
+
         const korisniciDto: UserDto[] = korisnici.map(
             (user) => new UserDto(user.user_id, user.username, user.uloga)
         );
@@ -15,4 +16,3 @@ export class UserService implements IUserService {
         return korisniciDto;
     }
 }
-

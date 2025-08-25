@@ -1,5 +1,6 @@
 import type { AuthUser } from "./AuthUser";
 
+
 export type AuthContextType = {
     user: AuthUser | null;
     token: string | null;

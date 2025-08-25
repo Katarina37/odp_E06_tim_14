@@ -1,8 +1,9 @@
-import type {AuthUser} from "./AuthUser"
 
+/**
+ * Rezultat autentifikacije (prijave/registracije).
+ */
 export interface AuthResponse {
   success: boolean;
   message: string;
-  token?: string;
-  user?: AuthUser;
+  data?: string;
 }
