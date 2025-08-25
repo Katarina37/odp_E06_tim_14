@@ -13,8 +13,19 @@ export const contentApi: IContentAPIService = {
 
             return res.data;
         } catch (err){
-            console.log(err);
+            console.error(err);
             return [];
+        }
+    },
+
+    async getContentById(content_id: number): Promise<ContentDto> {
+        try {
+            const res = await axios.get<ContentDto>(`${API_URL}/${content_id}`);
+
+            return res.data;
+        } catch (err) {
+            console.error(err);
+            throw new Error("Sadrzaj nije pronadjen");
         }
     },
 };

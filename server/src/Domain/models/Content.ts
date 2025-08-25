@@ -7,6 +7,7 @@ export class Content {
         public datum_izlaska: Date = new Date(),
         public cover_slika: string = '',
         public zanr: string = '',
-        public prosjecna_ocjena? : number
+        public prosjecna_ocjena? : number,
+        public trivia_opis? : string[]
     ){}
 }

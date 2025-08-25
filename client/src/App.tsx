@@ -8,13 +8,18 @@ import { usersApi } from "./api_services/users/UsersAPIService";
 import PrikazSadrzajaStranica from "./pages/contents/PrikazSadrzajaStranica";
 import { contentApi } from "./api_services/contents/ContentAPIService";
 import { ProtectedRoute } from "./components/protected_route/ProtectedRoute";
+import PrikazDetaljaStranica from "./pages/contents/PrikazDetaljaStranica";
+import PrikazEpizodaStranica from "./pages/contents/PrikazEpizodaStranica";
+import { episodeApi } from "./api_services/episodes/EpisodeAPIService";
+
 
 function App() {
   return (
     <Routes>
       <Route path="/login" element={<PrijavaStranica authApi={authApi} />} />
       <Route path="/register" element={<RegistracijaStranica authApi={authApi} />} />
-
+      <Route path="/content/:content_id" element={<PrikazDetaljaStranica contentApi={contentApi} />} />
+      <Route path="/content/:content_id/episodes" element={<PrikazEpizodaStranica episodeApi={episodeApi} />} />
       <Route path="/korisnik-dashboard" element={
         <ProtectedRoute requiredRole="korisnik">
           <KontrolnaTablaUserStranica />

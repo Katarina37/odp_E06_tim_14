@@ -8,5 +8,6 @@ export class ContentDto {
         public cover_slika: string = "",
         public zanr: string = "",
         public prosjecna_ocjena?: number,
+        public trivia_opis?: string[]
     ){}
 }

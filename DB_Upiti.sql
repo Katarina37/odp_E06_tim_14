@@ -69,23 +69,23 @@ INSERT INTO content (naziv, tip, opis, datum_izlaska, cover_slika, zanr) VALUES
 
 INSERT INTO epizode(content_id, sezona, broj_epizode, naziv_epizode, opis_epizode, cover_slika) VALUES
 (5, 1, 1, 'The One Where Monica Gets a Roomate', 'Pilot epizoda serije Friends', 'Images/serije/FriendsE1.jpg'),
-(5, 1, 2, 'The One with the Sonogram at the End', 'Ross saznaje da je njegova bivsa zena trudna. Rachel vraca prsten Barry-ju. Monika je pod stresom kad njeni roditelji dodju u posjetu', 'Images/serije/FriendsE2'),
-(5, 1, 3, 'The One with the Thumb', 'Monika se bori sa raskidom sa deckom kojeg svi vole, Chandler ponovo pocinje pusiti a Pheobe dobija veliku, svotu novca', 'Images/serije/FriendsE3');
+(5, 1, 2, 'The One with the Sonogram at the End', 'Ross saznaje da je njegova bivsa zena trudna. Rachel vraca prsten Barry-ju. Monika je pod stresom kad njeni roditelji dodju u posjetu', 'Images/serije/FriendsE2.jpg'),
+(5, 1, 3, 'The One with the Thumb', 'Monika se bori sa raskidom sa deckom kojeg svi vole, Chandler ponovo pocinje pusiti a Pheobe dobija veliku, svotu novca', 'Images/serije/FriendsE3.jpg');
 
 INSERT INTO epizode(content_id, sezona, broj_epizode, naziv_epizode, opis_epizode, cover_slika) VALUES
-(6, 1, 1, 'Pilot', 'Walter saznaje da ima rak i odlucuje da proizvodi metamfetamin kako bi obezbijedio zenu i sina', 'Images/serije/BreakingBadE1'),
-(6, 1, 2, 'Cat\'s in the Bag...', 'Walter i Jesse pokusavaju da sakriju tijelo i drogu', 'Images/serije/BreakingBadE2'),
-(6, 1, 3, '...And the Bag\'s in the River', 'Walter se suocava sa moralnom dilemom i likvidira prve neprijatelje', 'Images/serije/BreakingBadE3');
+(6, 1, 1, 'Pilot', 'Walter saznaje da ima rak i odlucuje da proizvodi metamfetamin kako bi obezbijedio zenu i sina', 'Images/serije/BreakingBadE1.jpg'),
+(6, 1, 2, 'Cat\'s in the Bag...', 'Walter i Jesse pokusavaju da sakriju tijelo i drogu', 'Images/serije/BreakingBadE2.jpg'),
+(6, 1, 3, '...And the Bag\'s in the River', 'Walter se suocava sa moralnom dilemom i likvidira prve neprijatelje', 'Images/serije/BreakingBadE3.jpg');
 
 INSERT INTO epizode(content_id, sezona, broj_epizode, naziv_epizode, opis_epizode, cover_slika) VALUES
-(7, 1, 1, 'Pilot', 'Mike Ross pocinje da radi kao advokat u firmi Harvey Specter-a', 'Images/serije/SuitsE1'),
-(7, 1, 2, 'Errors and Omissions', 'Mike and Harvey se suocavaju sa komplikovanim slucajem', 'Images/serije/SuitsE2'),
-(7, 1, 3, 'Inside Track', 'Rivalstvo i poslovni izazovi', 'Images/serije/SuitsE3');
+(7, 1, 1, 'Pilot', 'Mike Ross pocinje da radi kao advokat u firmi Harvey Specter-a', 'Images/serije/SuitsE1.jpg'),
+(7, 1, 2, 'Errors and Omissions', 'Mike and Harvey se suocavaju sa komplikovanim slucajem', 'Images/serije/SuitsE2.jpg'),
+(7, 1, 3, 'Inside Track', 'Rivalstvo i poslovni izazovi', 'Images/serije/SuitsE3.jpg');
 
 INSERT INTO epizode(content_id, sezona, broj_epizode, naziv_epizode, opis_epizode, cover_slika) VALUES
-(8, 1, 1, 'Winter Is Coming', 'Upoznajemo porodicu Stark i politicke intrige Westerosa', 'Images/serije/GoTE1'),
-(8, 1, 2, 'The Kingsroad', 'Porodice putuju kroz Kraljev put, prve tenzije se pojavljuju', 'Images/serije/GoTE2'),
-(8, 1, 3, 'Lord Snow', 'Jon Snow zapocinje svoj zivot na Zidu', 'Images/serije/GoTE3');
+(8, 1, 1, 'Winter Is Coming', 'Upoznajemo porodicu Stark i politicke intrige Westerosa', 'Images/serije/GoTE1.jpg'),
+(8, 1, 2, 'The Kingsroad', 'Porodice putuju kroz Kraljev put, prve tenzije se pojavljuju', 'Images/serije/GoTE2.jpg'),
+(8, 1, 3, 'Lord Snow', 'Jon Snow zapocinje svoj zivot na Zidu', 'Images/serije/GoTE3.jpg');
 
 
 

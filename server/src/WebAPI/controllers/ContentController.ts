@@ -15,6 +15,7 @@ export class ContentController {
 
     private initializeRoutes(): void {
         this.router.get("/content", this.contents.bind(this));
+        this.router.get("/content/:content_id", this.getById.bind(this));
     }
 
     private async contents(req: Request, res: Response): Promise<void> {
@@ -28,6 +29,24 @@ export class ContentController {
             res.status(500).json( { success: false, message: error});
         }
         
+    }
+
+    private async getById(req: Request, res: Response): Promise<void> {
+        try {
+            const content_id = parseInt(req.params.content_id, 10);
+
+            const content: ContentDto = 
+             await this.contentService.getContentById(content_id);
+
+            if(!content){
+                res.status(404).json({ success: false, message: "Sadrzaj nije dostupan "});
+            } 
+
+            res.status(200).json(content);
+            return;
+        } catch (err) {
+            res.status(500).json({ success: false, message: err});
+        }
     }
 
     public getRouter(): Router {

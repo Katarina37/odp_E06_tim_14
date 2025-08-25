@@ -1,7 +1,5 @@
 import { Content } from "../../models/Content";
 
-
-
 export interface IContentRepository {
 
     /**

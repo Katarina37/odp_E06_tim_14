@@ -11,5 +11,11 @@ export interface IContentService {
      * @returns 
      */
     getContentByNaziv(naziv: string): Promise<ContentDto>;
+
+    /**
+     * @param content_id
+     * @returns
+     */
+    getContentById(content_id: number): Promise<ContentDto>;
 }
 

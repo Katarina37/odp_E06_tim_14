@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import type { IContentAPIService } from "../../api_services/contents/IContentAPIService";
-import type { ContentDto } from "../../models/contents/ContentDto";
+import type  { IContentAPIService } from "../../../api_services/contents/IContentAPIService";
+import type { ContentDto } from "../../../models/contents/ContentDto";
 import './ContentList.css'
 import { FaSearch } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
@@ -16,6 +16,7 @@ export function ContentList({ contentApi }: PrikazProps) {
   const handleLoginClick = () => {
     navigate("/login");
   }
+
 
   useEffect(() => {
     (async () => {
@@ -43,7 +44,7 @@ export function ContentList({ contentApi }: PrikazProps) {
 
       <div className="cards-grid">
         {contents?.map(content => (
-          <div key={content.content_id} className="card">
+          <div key={content.content_id} className="card" onClick={() => navigate(`/content/${content.content_id}`)}>
             <img src={content.cover_slika} alt={content.naziv} />
             <div className="card-info">
               <h3>{content.naziv}</h3>

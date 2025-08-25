@@ -11,7 +11,7 @@ export class ContentService implements IContentService {
         try {
             const contents: Content[] = await this.contentRepository.getAll();
             const contentsDto: ContentDto[] = contents.map(
-            (content) => new ContentDto(content.content_id, content.naziv, content.tip, content.opis, content.datum_izlaska, content.cover_slika, content.zanr)
+            (content) => new ContentDto(content.content_id, content.naziv, content.tip, content.opis, content.datum_izlaska, content.cover_slika, content.zanr, content.prosjecna_ocjena, content.trivia_opis)
             );
 
             return contentsDto;
@@ -25,11 +25,22 @@ export class ContentService implements IContentService {
         try {
             const content: Content = await this.contentRepository.getByNaziv(naziv);
 
-            const contentDto: ContentDto = new ContentDto(content.content_id, content.naziv, content.tip, content.opis, content.datum_izlaska, content.cover_slika, content.zanr);
+            const contentDto: ContentDto = new ContentDto(content.content_id, content.naziv, content.tip, content.opis, content.datum_izlaska, content.cover_slika, content.zanr, content.prosjecna_ocjena, content.trivia_opis);
 
-            return contentDto
+            return contentDto;
         } catch (err){
             console.log(err);
+            return new ContentDto();
+        }
+    }
+    async getContentById(content_id: number): Promise<ContentDto> {
+        try {
+            const content: Content = await this.contentRepository.getById(content_id);
+            const contentDto: ContentDto = new ContentDto(content.content_id, content.naziv, content.tip, content.opis, content.datum_izlaska, content.cover_slika, content.zanr, content.prosjecna_ocjena, content.trivia_opis);
+
+            return contentDto;
+        } catch (err) {
+            console.error(err);
             return new ContentDto();
         }
     }

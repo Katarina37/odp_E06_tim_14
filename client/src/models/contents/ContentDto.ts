@@ -6,4 +6,6 @@ export interface ContentDto {
     datum_izlaska: string;
     cover_slika: string;
     zanr: string;
+    prosjecna_ocjena?: number;
+    trivia_opis?: string[];
 }
