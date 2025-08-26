@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { PrijavaForma } from "../../components/autentifikacija/PrijavaForma";
 import type { IAuthAPIService } from "../../api_services/auth/IAuthAPIService";
 import { useAuth } from "../../hooks/useAuthHook";
+import "./PrijavaStranica.css"
 
 interface LoginPageProps {
   authApi: IAuthAPIService;
@@ -18,8 +19,8 @@ export default function PrijavaStranica({ authApi }: LoginPageProps) {
   }, [isAuthenticated, navigate, user]);
 
   return (
-    <main className="min-h-screen bg-gradient-to-tr from-slate-600/75 to-orange-800/70 flex items-center justify-center px-4">
-      <PrijavaForma authApi={authApi} />
+    <main className="main-container">
+        <PrijavaForma authApi={authApi} />
     </main>
   );
 }

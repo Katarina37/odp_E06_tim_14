@@ -1,0 +1,19 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+#root {
+  height: 100%;
+}
+
+.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  height: 100vh;         
+  background: linear-gradient(135deg, rgba(130, 130, 130, 0.95), rgba(200, 200, 200, 0.95));
+  padding: 1rem;
+}

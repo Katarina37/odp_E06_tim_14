@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { RegistracijaForma } from "../../components/autentifikacija/RegistracijaForma";
 import type { IAuthAPIService } from "../../api_services/auth/IAuthAPIService";
 import { useAuth } from "../../hooks/useAuthHook";
+import "./PrijavaStranica.css"
 
 interface RegistracijaPageProps {
   authApi: IAuthAPIService;
@@ -18,7 +19,7 @@ export default function RegistracijaStranica({ authApi }: RegistracijaPageProps)
   }, [isAuthenticated, navigate, user]);
 
   return (
-    <main className="min-h-screen bg-gradient-to-tr from-slate-600/75 to-orange-800/70 flex items-center justify-center">
+    <main className="main-container">
       <RegistracijaForma authApi={authApi} />
     </main>
   );
