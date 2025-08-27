@@ -25,8 +25,9 @@ export const authApi: IAuthAPIService = {
 
   async registracija(username:string, uloga: string, lozinka: string): Promise<AuthResponse> {
     try {
-      const res = await axios.post<AuthResponse>(`${API_URL}/register`, {username, uloga, lozinka});
+      const res = await axios.post<AuthResponse>(`${API_URL}/register`, {username, lozinka, uloga});
 
+      
       return res.data;
     } catch (error) {
       let message = "Грешка приликом пријаве.";

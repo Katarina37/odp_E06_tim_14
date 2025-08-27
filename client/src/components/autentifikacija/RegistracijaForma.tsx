@@ -17,19 +17,13 @@ export function RegistracijaForma({ authApi }: AuthFormProps) {
 
     const validacija = validacijaPodatakaAuth(username, lozinka);
     if (!validacija.uspjesno) {
-      setGreska(validacija.poruka ?? "Неисправни подаци");
+      setGreska(validacija.poruka ?? "Neispravni podaci");
       return;
     }
 
-    const odgovor = await authApi.registracija(username, lozinka, uloga);
+    const odgovor = await authApi.registracija(username, uloga, lozinka);
     if (odgovor.success && odgovor.data) {
-      const noviUser = {
-      user_id: odgovor.data.user_id,
-      username: odgovor.data.username,
-      uloga: odgovor.data.uloga, // ovo mora postojati
-    };
-      console.log(noviUser);
-      login(odgovor.data.token);
+      login(odgovor.data);
     } else {
       setGreska(odgovor.message);
       setUsername("");
@@ -38,7 +32,8 @@ export function RegistracijaForma({ authApi }: AuthFormProps) {
   };
 
   return (
-    <div className="prijava-forma">
+    <div className="login-page">
+      <div className="prijava-forma">
       <h1>Registracija</h1>
       <form onSubmit={podnesiFormu}>
         <div className="input-group">
@@ -80,6 +75,14 @@ export function RegistracijaForma({ authApi }: AuthFormProps) {
           Prijavite se
         </Link>
       </p>
+
+      <p>
+        Gledajte kao gost?{""}
+        <Link to="/content">
+          Gledaj
+        </Link>
+      </p>
+    </div>
     </div>
   );
 }

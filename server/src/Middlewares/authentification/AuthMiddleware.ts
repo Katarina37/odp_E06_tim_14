@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from "express";
-import { UserLoginDto } from "../../Domain/DTOs/auth/UserLoginDto";
 import jwt from "jsonwebtoken"
 
 declare global {

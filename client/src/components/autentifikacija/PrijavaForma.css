@@ -1,11 +1,11 @@
 .prijava-forma {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.268);
   backdrop-filter: blur(10px);
   padding: 2rem;
   border-radius: 20px;
   max-width: 400px;
   width: 100%;
-  border: 1px solid #3b82f6;
+  border: 1px solid rgba(255, 255, 255, 0.671);
   box-shadow: 0 8px 20px rgba(0,0,0,0.25);
   text-align: center;
 }
@@ -38,7 +38,7 @@
 .prijava-forma button {
   width: 100%;
   padding: 0.75rem;
-  background-color: rgba(59,130,246,0.7);
+  background-color: rgb(59, 131, 246);
   border: none;
   border-radius: 12px;
   color: white;
@@ -70,4 +70,17 @@
 
 .prijava-forma a:hover {
   text-decoration: underline;
+}
+
+.login-page {
+  background-image: url('Images/PozadinaForma.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-width: 210vh;
+  min-height: 97vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }

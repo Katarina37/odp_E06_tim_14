@@ -22,8 +22,6 @@ export class AuthController {
     try {
       const { username, lozinka } = req.body;
 
-      console.log("Uneseno:", { username, lozinka });
-
       const rezultat = validacijaPodatakaAuth(username, lozinka);
 
       if (!rezultat.uspjesno) {
@@ -44,7 +42,7 @@ export class AuthController {
         res.status(200).json({success: true, message: 'Uspješna prijava', data: token});
         return;
       } else {
-        res.status(401).json({success: false, message: 'Неисправно корисничко име или лозинка'});
+        res.status(401).json({success: false, message: 'Neispravno korisnicko ime ili lozinka.'});
         return;
       }
     } catch (err) {
@@ -64,10 +62,9 @@ export class AuthController {
       }
 
       const result = await this.authService.registracija(username, uloga, lozinka);
-      
-      // Proveravamo da li je registracija uspešna
+    
       if (result.user_id !== 0) {
-        // Kreiranje jwt tokena
+        
         const token = jwt.sign(
           { 
             user_id: result.user_id, 
@@ -78,7 +75,7 @@ export class AuthController {
 
         res.status(201).json({success: true, message: 'Uspešna registracija', data: token});
       } else {
-        res.status(401).json({success: false, message: 'Регистрација није успела. Корисничко име већ постоји.', });
+        res.status(401).json({success: false, message: 'Registracija nije uspjela. Korisnicko ime vec postoji.'});
       }
     } catch (error) {
       res.status(500).json({success: false, message: error});

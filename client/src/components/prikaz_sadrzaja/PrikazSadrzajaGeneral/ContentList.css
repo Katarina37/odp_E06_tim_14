@@ -1,15 +1,21 @@
-
 .content-page {
-  background-color: #1f2937; 
+  background-color: #1f2937;
   min-height: 100vh;
   padding: 20px;
   margin: 0;
+  position: relative; /* da logout button može biti apsolutno */
 }
 .content-header {
   display: flex;
   align-items: center;
   gap: 10px;
   margin-bottom: 20px;
+}
+
+.content-main {
+  display: flex;
+  gap: 20px;
+  margin-top: 60px; /* ostavljamo prostor za logout dugme */
 }
 
 .search-icon {
@@ -48,12 +54,14 @@
 
 .cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 180px)); /* fiksna širina kartica */
   gap: 20px;
+  justify-content: flex-start;
+  flex: 1; /* grid zauzima ostatak prostora */
 }
 
 .card {
-  background-color: #374151; 
+  background-color: #374151;
   border-radius: 15px;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0,0,0,0.3);
@@ -63,14 +71,17 @@
   transition: transform 0.2s ease;
 }
 
+.card img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
 .card:hover{
   transform: scale(1.1);
 }
 
-.card img {
-  width: 100%;
-  height: 250px;
-}
+
 
 
 .card-info {
@@ -126,3 +137,55 @@
   transform: translateX(5px);
   background-color: #333;
 }
+
+.filter-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 220px; /* širina sidebar-a */
+}
+
+
+.search-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.search-wrapper .search-input {
+  flex: 1;
+  padding: 8px 10px; 
+  font-size: 14px; 
+  border-radius: 20px;
+}
+
+.search-wrapper .search-icon {
+  color: #facc15;
+  font-size: 16px; 
+}
+
+.filter-controls select {
+  padding: 6px 8px;
+  font-size: 14px;
+  border-radius: 20px;
+}
+
+.logout-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 20px;
+  background-color: #facc15;
+  color: #000;
+  border: none;
+  cursor: pointer;
+  width: auto; /* automatska širina prema sadržaju */
+  flex: 0 0 auto; /* uklanja fleks rastezanje */
+}
+
+.logout-button:hover {
+  background-color: #eab308;
+}
+

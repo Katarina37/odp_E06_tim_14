@@ -15,7 +15,7 @@ export default function PrijavaStranica({ authApi }: LoginPageProps) {
 
   useEffect(() => {
     if (isAuthenticated && user) 
-      navigate(`/${user.uloga}-dashboard`);
+      navigate(`/content/${user.uloga}`);
   }, [isAuthenticated, navigate, user]);
 
   return (

@@ -2,15 +2,15 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { authApi } from "./api_services/auth/AuthAPIService";
 import PrijavaStranica from "./pages/auth/PrijavaStranica";
 import RegistracijaStranica from "./pages/auth/RegistracijaStranica";
-import KontrolnaTablaAdminStranica from "./pages/kontrolna_tabla/KontrolnaTablaAdminStranica";
-import KontrolnaTablaUserStranica from "./pages/kontrolna_tabla/KontrolnaTablaKorisnikStranica";
-import { usersApi } from "./api_services/users/UsersAPIService";
+//import { usersApi } from "./api_services/users/UsersAPIService";
 import PrikazSadrzajaStranica from "./pages/contents/PrikazSadrzajaStranica";
 import { contentApi } from "./api_services/contents/ContentAPIService";
 import { ProtectedRoute } from "./components/protected_route/ProtectedRoute";
 import PrikazDetaljaStranica from "./pages/contents/PrikazDetaljaStranica";
 import PrikazEpizodaStranica from "./pages/contents/PrikazEpizodaStranica";
 import { episodeApi } from "./api_services/episodes/EpisodeAPIService";
+import PrikazDetaljaEpStranica from "./pages/contents/PrikazDetaljaEpStranica";
+import PrikazKorisnikStranica from "./pages/contents/PrikazKorisnikStranica";
 
 
 function App() {
@@ -20,16 +20,10 @@ function App() {
       <Route path="/register" element={<RegistracijaStranica authApi={authApi} />} />
       <Route path="/content/:content_id" element={<PrikazDetaljaStranica contentApi={contentApi} />} />
       <Route path="/content/:content_id/episodes" element={<PrikazEpizodaStranica episodeApi={episodeApi} />} />
-      <Route path="/korisnik-dashboard" element={
+      <Route path="/content/:content_id/episodes/:episode_id" element={<PrikazDetaljaEpStranica episodeApi={episodeApi} />} />
+      <Route path="/content/korisnik" element={
         <ProtectedRoute requiredRole="korisnik">
-          <KontrolnaTablaUserStranica />
-        </ProtectedRoute>
-      }
-      />
-
-      <Route path="/administrator-dashboard" element = {
-        <ProtectedRoute requiredRole="administrator">
-          <KontrolnaTablaAdminStranica usersApi={usersApi} />
+          <PrikazKorisnikStranica contentApi={contentApi} />
         </ProtectedRoute>
       }
       />

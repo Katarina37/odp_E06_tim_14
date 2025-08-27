@@ -1,5 +1,5 @@
 import { Content } from "../../models/Content";
-
+import { ContentFilterParameters } from "../../types/ContentFilterParameters";
 export interface IContentRepository {
 
     /**
@@ -7,18 +7,12 @@ export interface IContentRepository {
      * @returns
      */
     getById(content_id: number): Promise<Content>;
-
+    
     /**
-     * @param naziv
-     * @returns
+     * @param params
+     * @returns 
      */
-    getByNaziv(naziv: string): Promise<Content>;
-
-    /**
-     * @param tip
-     * @returns
-     */
-    getByTip(tip: string): Promise<Content>;
+    getFilter(param: ContentFilterParameters): Promise<Content[]>;
 
     /**
      * @returns

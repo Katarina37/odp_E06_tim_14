@@ -16,15 +16,13 @@ export function PrijavaForma({ authApi }: AuthFormProps) {
 
     const validacija = validacijaPodatakaAuth(username, lozinka);
     if (!validacija.uspjesno) {
-      setGreska(validacija.poruka ?? "Неисправни подаци");
+      setGreska(validacija.poruka ?? "Neispravni podaci");
       return;
     }
 
     const odgovor = await authApi.prijava(username, lozinka);
     if (odgovor.success && odgovor.data) {
       const userdto = odgovor.data;
-      console.log("podaci", userdto);
-      console.log(userdto);
       login(userdto);
     } else {
       setGreska(odgovor.message);
@@ -34,49 +32,47 @@ export function PrijavaForma({ authApi }: AuthFormProps) {
   };
 
   return (
-    <div className="prijava-forma">
-    <h1>Prijava</h1>
-    <form onSubmit={podnesiFormu}>
-      <div className="input-group">
-        <input
-        type="text"
-        placeholder="Korisničko ime"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
+    <div className="login-page">
+      <div className="prijava-forma">
+        <h1>Prijava</h1>
+        <form onSubmit={podnesiFormu}>
+          <div className="input-group">
+            <input
+              type="text"
+              placeholder="Korisničko ime"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </div>
+
+          <div className="input-group">
+            <input
+              type="password"
+              placeholder="Lozinka"
+              value={lozinka}
+              onChange={(e) => setLozinka(e.target.value)}
+            />
+          </div>
+
+          {greska && <p className="greska">{greska}</p>}
+
+          <button type="submit">Prijavi se</button>
+        </form>
+
+        <p>
+          Nemate nalog?{" "}
+          <Link to="/register">
+            Registrujte se
+          </Link>
+        </p>
+
+        <p>
+          Gledajte kao gost?{" "}
+          <Link to="/content">
+            Gledaj
+          </Link>
+        </p>
       </div>
-
-      <div className="input-group">
-        <input
-        type="password"
-        placeholder="Lozinka"
-        value={lozinka}
-        onChange={(e) => setLozinka(e.target.value)}
-      />
-      </div>
-      
-       {greska && <p className="greska">{greska}</p>}
-
-      <button
-        type="submit"
-      >
-        Prijavi se
-      </button>
-    </form>
-
-    <p>
-      Nemate nalog?{" "}
-      <Link to="/register">
-        Registrujte se
-      </Link>
-    </p>
-
-    <p>
-      Gledajte kao gost?{" "}
-      <Link to="/content">
-        Gledaj
-      </Link>
-    </p>
-</div>
+    </div>
   );
 }

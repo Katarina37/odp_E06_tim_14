@@ -20,7 +20,7 @@ export function ContentDetails( { contentApi} : ContentDetailsProps) {
 
             try {
                 const data = await contentApi.getContentById(id);
-                console.log("Podaci:", data);
+                
                 setContent(data);
             } catch (err) {
                 console.error(err);
@@ -30,7 +30,7 @@ export function ContentDetails( { contentApi} : ContentDetailsProps) {
     }, [contentApi, id]);
 
     const handleClick = () => {
-        navigate("/content");
+        navigate(-1);
     };
 
     return (

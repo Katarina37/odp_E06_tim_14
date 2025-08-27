@@ -1,4 +1,3 @@
-
 import type { IContentAPIService } from "../../api_services/contents/IContentAPIService";
 import ContentDetails from "../../components/prikaz_sadrzaja/PrikazSadrzajaID/ContentDetails";
 

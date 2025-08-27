@@ -1,6 +1,7 @@
 import { Request, Response, Router } from "express";
 import { IContentService } from "../../Domain/services/contents/IContentService";
 import { ContentDto } from "../../Domain/DTOs/contents/ContentDto";
+import { ContentFilterParameters } from "../../Domain/types/ContentFilterParameters";
 
 
 export class ContentController {
@@ -16,6 +17,7 @@ export class ContentController {
     private initializeRoutes(): void {
         this.router.get("/content", this.contents.bind(this));
         this.router.get("/content/:content_id", this.getById.bind(this));
+        this.router.get("/content/korisnik/filter", this.filterContent.bind(this));
     }
 
     private async contents(req: Request, res: Response): Promise<void> {
@@ -48,6 +50,31 @@ export class ContentController {
             res.status(500).json({ success: false, message: err});
         }
     }
+
+    private async filterContent(req: Request, res: Response): Promise<void> {
+        try {
+            const params: ContentFilterParameters = {
+                tip: req.query.tip as string | undefined,
+                naziv: req.query.naziv as string | undefined,
+                sortBy: req.query.sortBy as "naziv" | "prosjecna_ocjena" | undefined,
+                sortOrder: req.query.sortOrder as "asc" | "desc" | undefined,
+            };
+
+            const contents = await this.contentService.getFilter(params);
+
+            if(!contents) {
+                res.status(404).json({ success: false, message: "Nijedan sadrzaj ne odgovara datim parametrima"});
+            }
+
+            res.status(200).json(contents);
+            return;
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ success: false, message: err});
+        }
+    }
+
+
 
     public getRouter(): Router {
         return this.router;

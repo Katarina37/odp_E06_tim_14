@@ -37,7 +37,7 @@ export function EpisodeList( { episodeApi}: PrikazEpProps) {
                     <div key={episode.episode_id} className="card" onClick={() => navigate(`/content/${episode.content_id}/episodes/${episode.episode_id}`)}>
                         <img src={`/${episode.cover_slika}`} alt={episode.naziv_epizode} />
                         <div className="card-info">
-                            <h3>{episode.naziv_epizode}</h3>
+                            <h3>S{episode.sezona}E{episode.broj_epizode}</h3>
                         </div>
                     </div>
                 ))}
