@@ -18,6 +18,11 @@ import { EpisodeRepository } from './Database/repositories/episodes/EpisodeRepos
 import { IEpisodeService } from './Domain/services/episodes/IEpisodeService';
 import { EpisodeService } from './Services/episodes/EpisodeService';
 import { EpisodeController } from './WebAPI/controllers/EpisodeController';
+import { IOcjenaRepository } from './Domain/repositories/ratings/IOcjenaRepository';
+import { OcjenaRepository } from './Database/repositories/ratings/OcjenaRepository';
+import { IOcjenaService } from './Domain/services/ratings/IOcjenaService';
+import { OcjenaService } from './Services/ratings/OcjenaService';
+import { RatingController } from './WebAPI/controllers/RatingController';
 
 require('dotenv').config();
 
@@ -30,22 +35,26 @@ app.use(express.json());
 const userRepository: IUserRepository = new UserRepository();
 const contentRepository: IContentRepository = new ContentRepository();
 const episodeRepository: IEpisodeRepository = new EpisodeRepository();
+const ocjenaRepository: IOcjenaRepository = new OcjenaRepository();
 // Services
 const authService: IAuthService = new AuthService(userRepository);
 const userService: IUserService = new UserService(userRepository);
 const contentService: IContentService = new ContentService(contentRepository);
 const episodeService: IEpisodeService = new EpisodeService(episodeRepository);
+const ocjenaService: IOcjenaService = new OcjenaService(ocjenaRepository);
 
 // WebAPI routes
 const authController = new AuthController(authService);
 const userController = new UserController(userService);
-const contentController = new ContentController(contentService);
+const contentController = new ContentController(contentService, ocjenaService);
 const episodeController = new EpisodeController(episodeService);
+const ocjenaController = new RatingController(ocjenaService);
 // Registering routes
 app.use('/api/v1', authController.getRouter());
 app.use('/api/v1', userController.getRouter());
 app.use('/api/v1', contentController.getRouter());
 app.use('/api/v1', episodeController.getRouter());
+app.use('/api/v1', ocjenaController.getRouter());
 
 
 

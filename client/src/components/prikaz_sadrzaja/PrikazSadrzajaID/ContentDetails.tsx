@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
 import type { IContentAPIService } from "../../../api_services/contents/IContentAPIService";
 import type { ContentDto } from "../../../models/contents/ContentDto";
+import type { OcjenaDto } from "../../../models/ratings/OcjenaDto";
 import '../PrikazSadrzajaGeneral/ContentList.css';
+import './OcjenaPrikaz.css';
+import { PročitajVrijednostPoKljuču } from "../../../helpers/local_storage";
 import { useParams, useNavigate, Link } from "react-router-dom";
+import { ocjenaApi } from "../../../api_services/ratings/OcjenaAPIService";
 
 interface ContentDetailsProps {
     contentApi: IContentAPIService;
@@ -12,7 +16,11 @@ export function ContentDetails( { contentApi} : ContentDetailsProps) {
     const params  = useParams<{ content_id?: string }>();
     const id = params.content_id ? parseInt(params.content_id, 10) : undefined;
     const [contents, setContent ] = useState<ContentDto | null>(null);
+    const [userRate, setUserRate] = useState<OcjenaDto | null>(null);
+    const [ ocjenaNova, setOcjena ] = useState<number>(1);
     const navigate = useNavigate();
+
+    const idToken = PročitajVrijednostPoKljuču("authToken");
 
     useEffect(() => {
         if(!id)  return;
@@ -22,15 +30,46 @@ export function ContentDetails( { contentApi} : ContentDetailsProps) {
                 const data = await contentApi.getContentById(id);
                 
                 setContent(data);
+
+                if(idToken){
+                    const ocjena = await ocjenaApi.getUserRate(id, idToken);
+                    setUserRate(ocjena);
+                }
             } catch (err) {
                 console.error(err);
                 setContent(null);
             }
         })();
-    }, [contentApi, id]);
+    }, [contentApi, id, idToken]);
 
     const handleClick = () => {
-        navigate(-1);
+        navigate("/content");
+    };
+
+    const handleAdd = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        if(!idToken || !id) return;
+
+        try {
+            const ocjenaAdd = await ocjenaApi.addOcjena(id, ocjenaNova, idToken);
+            setUserRate(ocjenaAdd);
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+    const handleUpdate = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        if(!idToken || !id) return;
+
+        try {
+            const ocjenaUpdate = await ocjenaApi.updateOcjena(id, ocjenaNova, idToken);
+            setUserRate(ocjenaUpdate);
+        } catch (err) {
+            console.error(err);
+        }
     };
 
     return (
@@ -50,7 +89,21 @@ export function ContentDetails( { contentApi} : ContentDetailsProps) {
                     <p><strong>Tip: </strong>{contents.tip}</p>
                     <p><strong>Datum izlaska:</strong> {new Date(contents.datum_izlaska).toLocaleDateString()}</p>
                     <p>{contents.opis}</p>
-                    {contents.prosjecna_ocjena && <p><strong>Prosječna ocjena:</strong> {contents.prosjecna_ocjena}</p>}
+                    {contents.prosjecna_ocjena !== undefined && contents.prosjecna_ocjena !== null && (
+                        <div className="rating-container">
+                            <span className="rating-stars">
+                                {Array.from({length:10}, (_, i) => {
+                                    const avg = Number(contents.prosjecna_ocjena);
+                                    return(
+                                        <span key={i} className={i < Math.round(avg) ? "star filled" : "star"}>
+                                            ★
+                                        </span>
+                                    );
+                                })}
+                            </span>
+                            <span className="rating-value">{Number(contents.prosjecna_ocjena).toFixed(1)}</span>
+                        </div>
+                    )}
                     {contents.trivia_opis && (
                         <div>
                         <strong>Trivia:</strong>
@@ -70,6 +123,28 @@ export function ContentDetails( { contentApi} : ContentDetailsProps) {
                 </p>
                 )}
 
+                { idToken && (
+                    <div className="rating-container">
+                        {userRate ? (
+                            <div>
+                                <p> Ocijenili ste sadrzaj: {userRate.ocjena}</p>
+                                <form onSubmit={handleUpdate}>
+                                    <input type="number" min={1} max={10} value={ocjenaNova} onChange={e => setOcjena(+e.target.value)} />
+                                    <button className="login-button" type="submit">Promijeni</button>
+                                </form>
+                            </div>
+                        ) : (
+                            <div>
+                                <p>Jos niste ocijenili ovaj sadrzaj</p>
+                                <form onSubmit={handleAdd}>
+                                    <input type="number" min={1} max={10} value={ocjenaNova} onChange={e => setOcjena(+e.target.value)} />
+                                    <button className="login-button" type="submit">Ocijeni</button>
+                                </form>
+                            </div>
+                        )}
+                    </div>
+                )}
+
             </div>
         ) : (
             <p>Sadrzaj nije pronadjen</p>
@@ -78,4 +153,5 @@ export function ContentDetails( { contentApi} : ContentDetailsProps) {
     );
 }
 
-export default ContentDetails;
+export default ContentDetails; 
+

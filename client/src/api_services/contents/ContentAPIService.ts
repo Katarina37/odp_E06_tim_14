@@ -29,6 +29,8 @@ export const contentApi: IContentAPIService = {
         }
     },
 
+
+
     async getContentByFilter(params: ContentFilterParameters): Promise<ContentDto[]> {
         try {
             const res = await axios.get<ContentDto[]>(`${API_URL}/korisnik/filter`, {

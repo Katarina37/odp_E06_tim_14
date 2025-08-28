@@ -181,11 +181,14 @@
   color: #000;
   border: none;
   cursor: pointer;
-  width: auto; /* automatska širina prema sadržaju */
-  flex: 0 0 auto; /* uklanja fleks rastezanje */
+  width: auto;
+  flex: 0 0 auto; 
 }
 
 .logout-button:hover {
   background-color: #eab308;
 }
+
+
+
 
