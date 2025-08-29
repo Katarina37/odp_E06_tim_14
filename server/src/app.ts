@@ -23,6 +23,10 @@ import { OcjenaRepository } from './Database/repositories/ratings/OcjenaReposito
 import { IOcjenaService } from './Domain/services/ratings/IOcjenaService';
 import { OcjenaService } from './Services/ratings/OcjenaService';
 import { RatingController } from './WebAPI/controllers/RatingController';
+import { ITriviaRepository } from './Domain/repositories/trivia/ITriviaRepository';
+import { TriviaRepository } from './Database/repositories/trivia/TriviaRepository';
+import { AdminController } from './WebAPI/controllers/AdminController';
+import { validateContent } from './Middlewares/validation/ContentValidation';
 
 require('dotenv').config();
 
@@ -36,10 +40,11 @@ const userRepository: IUserRepository = new UserRepository();
 const contentRepository: IContentRepository = new ContentRepository();
 const episodeRepository: IEpisodeRepository = new EpisodeRepository();
 const ocjenaRepository: IOcjenaRepository = new OcjenaRepository();
+const triviaRepository: ITriviaRepository = new TriviaRepository();
 // Services
 const authService: IAuthService = new AuthService(userRepository);
 const userService: IUserService = new UserService(userRepository);
-const contentService: IContentService = new ContentService(contentRepository);
+const contentService: IContentService = new ContentService(contentRepository, triviaRepository, episodeRepository);
 const episodeService: IEpisodeService = new EpisodeService(episodeRepository);
 const ocjenaService: IOcjenaService = new OcjenaService(ocjenaRepository);
 
@@ -49,13 +54,18 @@ const userController = new UserController(userService);
 const contentController = new ContentController(contentService, ocjenaService);
 const episodeController = new EpisodeController(episodeService);
 const ocjenaController = new RatingController(ocjenaService);
+const adminController = new AdminController(contentService as ContentService);
 // Registering routes
 app.use('/api/v1', authController.getRouter());
 app.use('/api/v1', userController.getRouter());
 app.use('/api/v1', contentController.getRouter());
 app.use('/api/v1', episodeController.getRouter());
 app.use('/api/v1', ocjenaController.getRouter());
+app.use('/api/v1', adminController.getRouter());
 
+app.post('/api/v1/test-validation', validateContent, (req: Request, res: Response) => {
+    res.json({success: true, message: "Podaci su validni", data: req.body});
+});
 
 
 export default app; 

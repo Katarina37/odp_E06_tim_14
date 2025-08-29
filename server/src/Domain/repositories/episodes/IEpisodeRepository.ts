@@ -15,4 +15,7 @@ export interface IEpisodeRepository {
      */
     getById(episode_id: number, content_id: number): Promise<Epizoda>;
 
+    create(epizoda: Epizoda): Promise<Epizoda>;
+    deleteForContent(content_id: number): Promise<boolean>;
+
 }

@@ -1,6 +1,6 @@
 import { IContentRepository } from "../../../Domain/repositories/contents/IContentRepository";
 import { Content } from "../../../Domain/models/Content";
-import { RowDataPacket } from "mysql2";
+import { ResultSetHeader, RowDataPacket } from "mysql2";
 import db from "../../connection/DbConnectionPool";
 import { ContentFilterParameters } from "../../../Domain/types/ContentFilterParameters";
 
@@ -119,6 +119,83 @@ export class ContentRepository implements IContentRepository {
         } catch (err) {
             console.log(err);
             return [];
+        }
+    }
+
+    async create(content: Content): Promise<Content>{
+        try{
+            const query = `
+            INSERT INTO content (naziv, tip, opis, datum_izlaska, cover_slika, zanr)
+            VALUES (?, ?, ?, ?, ?, ?)
+            `;
+
+            const [result] = await db.execute<ResultSetHeader>(query, [
+                content.naziv,
+                content.tip,
+                content.opis,
+                content.datum_izlaska,
+                content.cover_slika,
+                content.zanr
+            ]);
+
+            if(result.insertId){
+                return new Content(
+                    result.insertId,
+                    content.naziv,
+                    content.tip,
+                    content.opis,
+                    content.datum_izlaska,
+                    content.cover_slika,
+                    content.zanr
+                );
+            }
+
+            return new Content();
+        }catch(err){
+            console.error(err);
+            return new Content();
+        }
+    }
+
+    async update(content: Content): Promise<Content>{
+        try{
+            const query = `
+                UPDATE content
+                SET naziv = ?, tip = ?, opis = ?, datum_izlaska = ?, cover_slika = ?, zanr = ?
+                WHERE content_id = ?
+            `;
+
+            const [result] = await db.execute<ResultSetHeader>(query, [
+                content.naziv,
+                content.tip,
+                content.opis,
+                content.datum_izlaska,
+                content.cover_slika,
+                content.zanr,
+                content.content_id
+            ]);
+             
+            if(result.affectedRows > 0){
+                return content;
+            }
+            return new Content();
+        }catch(err){
+            console.error(err);
+            return new Content();
+        }
+    }
+
+    async delete(content_id: number): Promise<boolean>{
+        try{
+            const query = `
+                DELETE FROM content 
+                WHERE content_id = ?
+            `;
+            const [result] = await db.execute<ResultSetHeader>(query, [content_id]);
+            return result.affectedRows > 0;
+        }catch(err){
+            console.error(err);
+            return false;
         }
     }
 }

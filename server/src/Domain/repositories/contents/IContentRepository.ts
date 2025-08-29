@@ -18,4 +18,8 @@ export interface IContentRepository {
      * @returns
      */
     getAll(): Promise<Content[]>;
+
+    create(content: Content): Promise<Content>;
+    update(content: Content): Promise<Content>;
+    delete(content_id: number): Promise<boolean>;
 }

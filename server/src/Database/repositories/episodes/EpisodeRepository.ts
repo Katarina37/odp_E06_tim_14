@@ -1,6 +1,6 @@
 import { IEpisodeRepository } from "../../../Domain/repositories/episodes/IEpisodeRepository";
 import { Epizoda } from "../../../Domain/models/Epizoda";
-import { RowDataPacket } from "mysql2";
+import { ResultSetHeader, RowDataPacket } from "mysql2";
 import db from "../../connection/DbConnectionPool";
 
 
@@ -49,6 +49,55 @@ export class EpisodeRepository implements IEpisodeRepository {
         } catch (err) {
             console.log(err);
             return [];
+        }
+    }
+
+    async create(epizoda: Epizoda): Promise<Epizoda>{
+        try{
+            const query = `
+                INSERT INTO epizode (content_id, sezona, broj_epizode, naziv_epizode, opis_epizode, cover_slika)
+                VALUES (?, ?, ?, ?, ?, ?)
+            `;
+
+            const [result] = await db.execute<ResultSetHeader>(query, [
+                epizoda.content_id,
+                epizoda.sezona,
+                epizoda.broj_epizode,
+                epizoda.naziv_epizode,
+                epizoda.opis_epizode,
+                epizoda.cover_slika
+            ]);
+
+            if(result.insertId){
+                return new Epizoda(
+                    result.insertId,
+                    epizoda.content_id,
+                    epizoda.sezona,
+                    epizoda.broj_epizode,
+                    epizoda.naziv_epizode,
+                    epizoda.opis_epizode,
+                    epizoda.cover_slika
+                );
+            }
+            return new Epizoda();
+        }catch(err){
+            console.error(err);
+            return new Epizoda();
+        }
+    }
+
+    async deleteForContent(content_id: number): Promise<boolean>{
+        try{
+            const query = `
+                DELETE FROM epizode 
+                WHERE content_id = ?
+            `;
+
+            const [result] = await db.execute<ResultSetHeader>(query, [content_id]);
+            return result.affectedRows > 0;
+        }catch(err){
+            console.error(err);
+            return false;
         }
     }
 }
