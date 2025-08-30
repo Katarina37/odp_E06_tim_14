@@ -11,6 +11,7 @@ import PrikazEpizodaStranica from "./pages/contents/PrikazEpizodaStranica";
 import { episodeApi } from "./api_services/episodes/EpisodeAPIService";
 import PrikazDetaljaEpStranica from "./pages/contents/PrikazDetaljaEpStranica";
 import PrikazKorisnikStranica from "./pages/contents/PrikazKorisnikStranica";
+import AdminDashboard from "./pages/admin/AdminDashboard";
 
 
 function App() {
@@ -21,12 +22,19 @@ function App() {
       <Route path="/content/:content_id" element={<PrikazDetaljaStranica contentApi={contentApi} />} />
       <Route path="/content/:content_id/episodes" element={<PrikazEpizodaStranica episodeApi={episodeApi} />} />
       <Route path="/content/:content_id/episodes/:episode_id" element={<PrikazDetaljaEpStranica episodeApi={episodeApi} />} />
+      
       <Route path="/content/korisnik" element={
         <ProtectedRoute requiredRole="korisnik">
           <PrikazKorisnikStranica contentApi={contentApi} />
         </ProtectedRoute>
       }
       />
+
+      <Route path="/content/administrator" element={
+        <ProtectedRoute requiredRole="administrator">
+          <AdminDashboard />
+        </ProtectedRoute>
+      }/>
 
       <Route path="/content" element = {<PrikazSadrzajaStranica contentApi={contentApi} />} />
       <Route path="/" element={<Navigate to="/content" replace />} />
