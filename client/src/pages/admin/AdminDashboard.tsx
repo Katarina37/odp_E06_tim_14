@@ -49,7 +49,7 @@ export default function AdminDashboard(){
             <div className="content-grid">
               {contents.map(c => (
                 <div key={c.content_id} className="content-card">
-                  <img src={`/${c.cover_slika}`} alt={c.naziv} />
+                  <img src={`/${c.cover_slika}`} alt={c.naziv} className="card-image"/>
                   <div className="card-info">
                     <h3>{c.naziv}</h3>
                     <p>{c.zanr}</p>

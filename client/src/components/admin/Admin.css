@@ -48,12 +48,12 @@
 }
 
 .admin-form button[type="submit"] {
-  background-color: #22c55e; /* zeleno */
+  background-color: #22c55e;
   color: white;
 }
 
 .admin-form button[type="button"] {
-  background-color: #facc15; /* žuto */
+  background-color: #facc15; 
   margin-top: 5px;
 }
 
@@ -74,43 +74,63 @@
 
 .content-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 15px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 180px)); 
+  gap: 20px;
+  justify-content: flex-start;
+  cursor: pointer;
 }
 
 .content-card {
-  background-color: #222;
-  padding: 15px;
-  border-radius: 10px;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.4);
+  background-color: #1f2937; 
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease;
 }
 
-.content-card img {
+.content-card:hover {
+  transform: scale(1.1);
+}
+
+.card-image {
   width: 100%;
-  height: 160px;
+  height: 250px;
   object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 10px;
 }
 
-.content-card h3 {
-  font-size: 1.2rem;
-  margin-bottom: 5px;
+.card-info {
+  padding: 10px;
+  color: #f9fafb;
 }
 
-.content-card p {
-  font-size: 0.9rem;
-  color: #ccc;
+.card-info h3 {
+  margin: 0 0 5px 0;
+  font-size: 18px;
 }
 
-.content-card button {
-  background-color: #ef4444; /* crveno */
-  color: white;
-  padding: 6px 10px;
-  border-radius: 6px;
+.card-info p {
+  margin: 0;
+  font-size: 14px;
+  color: #d1d5db;
+}
+
+.card-info button {
+  margin-top: 8px;
+  width: 100%;
+  padding: 6px 0;
   border: none;
+  border-radius: 6px;
+  background-color: #ef4444;
+  color: white;
+  font-weight: bold;
   cursor: pointer;
-  margin-top: 5px;
+  transition: background 0.2s ease;
+}
+
+.card-info button:hover {
+  background-color: #dc2626;
 }
 
 .admin-header {
@@ -120,22 +140,38 @@
   margin-bottom: 20px;
 }
 
-.btn-yellow {
-  background-color: #facc15;
-  color: black;
-  font-weight: bold;
-  padding: 8px 15px;
+.admin-header button {
+  width: auto;       
+  padding: 10px 18px; 
+  font-size: 15px;
   border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-yellow, 
+.btn-red {
+  padding: 6px 12px;      
+  font-size: 14px;      
+  border-radius: 8px;    
   border: none;
   cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-yellow {
+  background-color: #facc15;
+  color: #000;
+}
+
+.btn-yellow:hover {
+  background-color: #eab308;
 }
 
 .btn-red {
   background-color: #ef4444;
   color: white;
-  font-weight: bold;
-  padding: 8px 15px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
+}
+
+.btn-red:hover {
+  background-color: #dc2626;
 }
