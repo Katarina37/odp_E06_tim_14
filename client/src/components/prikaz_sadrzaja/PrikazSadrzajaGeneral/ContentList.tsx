@@ -11,14 +11,14 @@ interface PrikazProps {
 
 export function ContentList({ contentApi }: PrikazProps) {
   const [contents, setContent] = useState<ContentDto[]>([]);
+  const [search, setSearch] = useState("");
   const navigate = useNavigate();
 
   const handleLoginClick = () => {
     navigate("/login");
   }
 
-
-  useEffect(() => {
+  /*useEffect(() => {
     (async () => {
       try {
         const data = await contentApi.getAllContent();
@@ -27,10 +27,26 @@ export function ContentList({ contentApi }: PrikazProps) {
         console.error("Greska:", err);
       }
     })();
-  }, [contentApi]);
+  }, [contentApi]);*/
 
-  
-     return (
+  const fetchContent = async () => {
+    try {
+      const params = { naziv: search || undefined }; 
+      const data = await contentApi.getContentByFilter(params);
+      setContent(data);
+    } catch (err) {
+      console.error("Greska:", err);
+      setContent([]);
+    }
+  }
+
+  useEffect(() => {
+    fetchContent();
+  }, [search]); 
+
+  const sinners = contents.find((c) => (c.naziv as string) === "Sinners");  
+
+    return (
     <div className="content-page">
       <div className="content-header">
         <FaSearch className="search-icon" />
@@ -38,9 +54,27 @@ export function ContentList({ contentApi }: PrikazProps) {
           type="text"
           placeholder="Pretrazi"
           className="search-input"
+          value={search}
+          onChange={e => setSearch(e.target.value)}
         />
         <button className="login-button" onClick={handleLoginClick}>Prijavi se</button>
       </div>
+
+      {sinners && (
+        <div className="hero-section"
+        style={{
+          backgroundImage: `url(/Images/filmovi/SinnersPoster.png)`,
+        }}>
+          <div className="hero-overlay">
+            <h1>{sinners.naziv}</h1>
+            <p>{sinners.zanr}</p>
+            <button className="hero-button"
+            onClick={() => navigate(`/content/${sinners.content_id}`)}
+            >Prikazi više
+            </button>
+          </div>
+        </div>
+      )}
 
       <div className="cards-grid">
         {contents?.map(content => (
