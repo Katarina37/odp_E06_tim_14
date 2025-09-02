@@ -1,6 +1,5 @@
 import { Request, Response, Router } from "express";
 import { IOcjenaService } from "../../Domain/services/ratings/IOcjenaService";
-import { validacijaOcjene } from "../validators/rating/RatingValidation";
 import { authenticate } from "../../MiddleWares/authentification/AuthMiddleware";
 
 export class RatingController {
@@ -31,13 +30,8 @@ export class RatingController {
 
             const result = await this.ocjenaService.addOcjena(content_id, user_id, ocjena);
 
-            //const uspjesno = validacijaOcjene(ocjena);
 
-            //if(uspjesno.uspjesno){
-                //res.status(200).json(result);
-           // }
-
-            res.status(401).json({ success: false, message: "Ocjena nije validna"});
+           res.status(200).json(result);
 
             
         } catch (err) {

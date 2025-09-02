@@ -97,25 +97,6 @@
   color: #d1d5db;
 }
 
-.detail-container {
-  display: flex;
-  gap: 20px;
-  background-color: #f4f4f4;
-  padding: 20px;
-  border-radius: 10px;
-}
-
-.detail-image img {
-  width: 300px;
-  height: 450px;
-  object-fit: cover;
-  border-radius: 10px;
-}
-
-.detail-info {
-  flex: 1;
-}
-
 .episode-list {
   list-style-type: circle;
   padding: 0;
@@ -239,20 +220,49 @@
   background-color: #eab308;
 }
 
-.episodes-link-container {
-  margin-top: 20px;
+.season-block {
+  margin-bottom: 40px;
+  color: #ccc;
 }
 
-.episodes-link {
-  display: inline-block;
-  padding: 8px 16px;
-  background-color: #facc15;
-  color: #000;
-  border-radius: 5px;
-  text-decoration: none;
-  transition: background-color 0.2s;
+.season-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding: 0 10px;
 }
 
-.episodes-link:hover {
-  background-color: #facc15;
+.season-header h2 {
+  margin: 0;
+  font-size: 20px;
 }
+
+
+.toggle-button {
+  background-color: #1f2937;
+  border: none;
+  color: #ccc;
+  padding: 4px 10px;
+    font-size: 13px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    max-width: fit-content;
+    white-space: nowrap;
+    display: inline-block;
+}
+
+
+.toggle-button:hover {
+    background-color: #1f2937;
+}
+
+.no-results {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #888;
+  margin-top: 40px;
+}
+
+

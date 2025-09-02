@@ -66,7 +66,20 @@ export default function AdminContentForm({onCreated} : AdminContentFormProps){
       <input placeholder="Naziv" value={naziv} onChange={e => setNaziv(e.target.value)} />
       <textarea placeholder="Opis" value={opis} onChange={e => setOpis(e.target.value)} />
       <input type="date" value={datum} onChange={e => setDatum(e.target.value)} />
-      <input placeholder="Cover slika (URL)" value={cover} onChange={e => setCover(e.target.value)} />
+      <input type="file" accept="image/*" onChange={(e) => {
+        const file = e.target.files?.[0];
+        if(file) {
+          const folder = tip === "film" ? "filmovi" : "serije";
+          setCover(`Images/${folder}/${file.name}`);
+        }
+      }}/>
+
+      { cover && (
+        <div style={{marginTop: '10px'}}>
+         <img src={`/${cover}`} alt="Preview" style={{ width: '150px', borderRadius: '4px'}} />
+         <p style={{ fontSize: '12px'}}>{cover}</p>
+        </div>
+      )}
       <input placeholder="Žanr" value={zanr} onChange={e => setZanr(e.target.value)} />
 
       <select value={tip} onChange={e => setTip(e.target.value)}>
@@ -88,7 +101,20 @@ export default function AdminContentForm({onCreated} : AdminContentFormProps){
               <input type="number" placeholder="Broj epizode" value={ep.broj_epizode} onChange={e => updateEpisode(i, "broj_epizode", +e.target.value)} />
               <input placeholder="Naziv epizode" value={ep.naziv_epizode} onChange={e => updateEpisode(i, "naziv_epizode", e.target.value)} />
               <textarea placeholder="Opis" value={ep.opis_epizode} onChange={e => updateEpisode(i, "opis_epizode", e.target.value)} />
-              <input placeholder="Cover slika" value={ep.cover_slika} onChange={e => updateEpisode(i, "cover_slika", e.target.value)} />
+              <input type="file" accept="image/*" onChange={(e) => {
+                const file = e.target.files?.[0];
+                if(file) {
+                  const putanja = `Images/serije/${file.name}`;
+                  updateEpisode(i, "cover_slika", putanja);
+                }
+              }} />
+
+              { ep.cover_slika && (
+                <div style={{marginTop: "8px"}}>
+                  <img src={`/${ep.cover_slika}`} alt="Preview" style={{ width: "120px", borderRadius: "4px"}}/>
+                  <p style={{fontSize: "11px"}}>{ep.cover_slika}</p>
+                </div>
+              )}
             </div>
           ))}
           <button type="button" onClick={handleAddEpisode}>Dodaj epizodu</button>

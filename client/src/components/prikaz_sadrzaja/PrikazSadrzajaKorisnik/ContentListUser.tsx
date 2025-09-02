@@ -91,6 +91,14 @@ export function ContentListUser({ contentApi }: PrikazProps) {
         </div>
       ))}
     </div>
+
+    {contents.length === 0 && search.trim() !== "" && (
+      <div className="no-results" style={{ textAlign: 'center', width: '100%', marginTop: '20px' }}>
+       Nema rezultata za "{search}"
+      </div>
+    )}
+
+
   </div>
 </div>
 

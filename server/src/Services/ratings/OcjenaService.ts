@@ -28,7 +28,15 @@ export class OcjenaService implements IOcjenaService {
             const postoji: Ocjena | null = await this.ocjenaRepository.getByContentAndUser(content_id, user_id);
 
             if(postoji) {
-            throw new Error("Vec ste ocijenili ovaj sadrzaj");
+             postoji.ocjena = ocjena;
+             const updated = await this.ocjenaRepository.updateOcjena(postoji);
+
+                return new OcjenaDto(
+                updated.rating_id,
+                updated.content_id,
+                updated.user_id,
+                updated.ocjena
+            );
             }
 
             const ocjenaNova: Ocjena = await this.ocjenaRepository.create(new Ocjena(0, content_id, user_id, ocjena));
