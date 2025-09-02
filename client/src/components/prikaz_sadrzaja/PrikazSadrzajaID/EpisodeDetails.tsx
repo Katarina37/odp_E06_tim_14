@@ -38,6 +38,7 @@ export function EpisodeDetails( {episodeApi}: EpisodeDetailProps) {
                 <button className="login-button" onClick={handleClick}>Nazad</button>
             </div>
 
+
             {episodes ? (
                 <div className="detail-container">
                     <div className="detail-image">

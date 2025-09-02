@@ -8,6 +8,8 @@ import { PročitajVrijednostPoKljuču } from "../../../helpers/local_storage";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { ocjenaApi } from "../../../api_services/ratings/OcjenaAPIService";
 
+
+import { FaCheckCircle, FaPen } from "react-icons/fa";
 interface ContentDetailsProps {
     contentApi: IContentAPIService;
 }
@@ -82,6 +84,27 @@ export function ContentDetails( { contentApi} : ContentDetailsProps) {
             <div className="detail-container">
                 <div className="detail-image">
                     <img src={`/${contents.cover_slika}`} alt={contents.naziv} />
+                     { idToken && (
+                    <div className="rating-container">
+                        {userRate ? (
+                            <div className="rating-box">
+                                <p> <FaCheckCircle /> Ocijenili ste sadrzaj: <strong> {userRate.ocjena}</strong></p>
+                                <form onSubmit={handleUpdate} className="rating-form">
+                                    <input type="number" min={1} max={10} value={ocjenaNova} onChange={e => setOcjena(+e.target.value)} />
+                                    <button className="login-button" type="submit"><FaPen> Promijeni </FaPen></button>
+                                </form>
+                            </div>
+                        ) : (
+                            <div className="rating-box">
+                                <p>Jos niste ocijenili ovaj sadrzaj</p>
+                                <form onSubmit={handleAdd} className="rating-form">
+                                    <input type="number" min={1} max={10} value={ocjenaNova} onChange={e => setOcjena(+e.target.value)} />
+                                    <button className="login-button" type="submit">Ocijeni</button>
+                                </form>
+                            </div>
+                        )}
+                    </div>
+                )}
                 </div>
                 <div className="detail-info">
                     <h2>{contents.naziv}</h2>
@@ -112,39 +135,14 @@ export function ContentDetails( { contentApi} : ContentDetailsProps) {
                         <li key={i}>{t}</li>
                     ))}
                      </ul>
+                    {contents.tip === "serija" && (
+                    <div className="episodes-link-container">
+                    <Link className="episodes-link" to={`/content/${contents.content_id}/episodes`}>Pogledaj sve epizode</Link>
+                    </div>
+                    )}
                   </div>
                 )}
                 </div>
-
-                {contents.tip === "serija" && (
-                <p>
-                    <strong>Epizode: </strong>
-                    <Link to={`/content/${contents.content_id}/episodes`}>Pogledaj sve epizode</Link>
-                </p>
-                )}
-
-                { idToken && (
-                    <div className="rating-container">
-                        {userRate ? (
-                            <div>
-                                <p> Ocijenili ste sadrzaj: {userRate.ocjena}</p>
-                                <form onSubmit={handleUpdate}>
-                                    <input type="number" min={1} max={10} value={ocjenaNova} onChange={e => setOcjena(+e.target.value)} />
-                                    <button className="login-button" type="submit">Promijeni</button>
-                                </form>
-                            </div>
-                        ) : (
-                            <div>
-                                <p>Jos niste ocijenili ovaj sadrzaj</p>
-                                <form onSubmit={handleAdd}>
-                                    <input type="number" min={1} max={10} value={ocjenaNova} onChange={e => setOcjena(+e.target.value)} />
-                                    <button className="login-button" type="submit">Ocijeni</button>
-                                </form>
-                            </div>
-                        )}
-                    </div>
-                )}
-
             </div>
         ) : (
             <p>Sadrzaj nije pronadjen</p>
@@ -154,4 +152,3 @@ export function ContentDetails( { contentApi} : ContentDetailsProps) {
 }
 
 export default ContentDetails; 
-

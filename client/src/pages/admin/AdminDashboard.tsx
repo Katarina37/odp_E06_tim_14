@@ -6,13 +6,19 @@ import AdminContentForm from "../../components/admin/AdminContentForm";
 import { PročitajVrijednostPoKljuču } from "../../helpers/local_storage";
 import "../../components/admin/Admin.css";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuthHook";
+
+import { FaTrash } from "react-icons/fa";
+
+
 
 export default function AdminDashboard(){
     const [contents, setContents] = useState<ContentDto[]>([]);
     const [showForm, setShowForm] = useState(false);
     const token = PročitajVrijednostPoKljuču("authToken");
     const navigate = useNavigate();
-
+    const { logout } = useAuth();
+   
     const load = async () => {
         const data = await contentApi.getAllContent();
         setContents(data);
@@ -28,8 +34,8 @@ export default function AdminDashboard(){
     };
 
     const handleLogout = () => {
-      localStorage.removeItem("authToken");
-      navigate("/");
+      logout();
+      navigate("/content");
     };
 
     return(
@@ -53,7 +59,7 @@ export default function AdminDashboard(){
                   <div className="card-info">
                     <h3>{c.naziv}</h3>
                     <p>{c.zanr}</p>
-                    <button onClick={() => handleDelete(c.content_id)}>Obriši</button>
+                    <button onClick={() => handleDelete(c.content_id)}><FaTrash /></button>
                   </div>
                 </div>
               ))}

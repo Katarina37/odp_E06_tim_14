@@ -239,4 +239,20 @@
   background-color: #eab308;
 }
 
+.episodes-link-container {
+  margin-top: 20px;
+}
 
+.episodes-link {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: #facc15;
+  color: #000;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.episodes-link:hover {
+  background-color: #facc15;
+}

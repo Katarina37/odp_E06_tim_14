@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import type  { IContentAPIService } from "../../../api_services/contents/IContentAPIService";
 import type { ContentDto } from "../../../models/contents/ContentDto";
 import './ContentList.css'
+
 import { FaSearch } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../hooks/useAuthHook";
 
 interface PrikazProps {
   contentApi: IContentAPIService;
@@ -12,33 +14,27 @@ interface PrikazProps {
 export function ContentList({ contentApi }: PrikazProps) {
   const [contents, setContent] = useState<ContentDto[]>([]);
   const [search, setSearch] = useState("");
+  const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
   const handleLoginClick = () => {
     navigate("/login");
   }
 
-  /*useEffect(() => {
-    (async () => {
-      try {
-        const data = await contentApi.getAllContent();
-        setContent(data);
-      } catch (err) {
-        console.error("Greska:", err);
-      }
-    })();
-  }, [contentApi]);*/
 
   const fetchContent = async () => {
     try {
       const params = { naziv: search || undefined }; 
       const data = await contentApi.getContentByFilter(params);
+      console.log(data);
       setContent(data);
     } catch (err) {
       console.error("Greska:", err);
       setContent([]);
     }
   }
+
+  
 
   useEffect(() => {
     fetchContent();
@@ -47,15 +43,17 @@ export function ContentList({ contentApi }: PrikazProps) {
   const sinners = contents.find((c) => (c.naziv as string) === "Sinners");  
 
     return (
-    <div className="content-page">
+      
+      <div className="content-page">
       <div className="content-header">
         <FaSearch className="search-icon" />
         <input
           type="text"
-          placeholder="Pretrazi"
+          placeholder={isAuthenticated ? "Pretrazi" : "Morate biti prijavljeni za pretragu"}
           className="search-input"
           value={search}
           onChange={e => setSearch(e.target.value)}
+          disabled = {!isAuthenticated}
         />
         <button className="login-button" onClick={handleLoginClick}>Prijavi se</button>
       </div>
@@ -87,9 +85,10 @@ export function ContentList({ contentApi }: PrikazProps) {
           </div>
         ))}
       </div>
-    </div>
+    </div> 
   
   );
 }
 
-export default ContentList;
+export default ContentList; 
+
