@@ -45,7 +45,10 @@ export function ContentDetails( { contentApi} : ContentDetailsProps) {
     }, [contentApi, id, idToken]);
 
     const handleClick = () => {
-        navigate("/content");
+        if(!idToken){
+            navigate("/content");
+        }
+        navigate("/content/korisnik");
     };
 
     const handleAdd = async (e: React.FormEvent) => {
