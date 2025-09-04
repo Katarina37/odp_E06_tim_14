@@ -4,7 +4,7 @@ import { Epizoda } from "../../Domain/models/Epizoda";
 import { ContentService } from "../../Services/contents/ContentService";
 import { authenticate } from "../../MiddleWares/authentification/AuthMiddleware";
 import { authorize } from "../../MiddleWares/authorization/AuthorizeMiddleware";
-import { validateContent } from "../../Middlewares/validation/ContentValidation";
+import { validateContent } from "../../MiddleWares/validation/ContentValidation";
 
 export class AdminController{
     private router: Router;

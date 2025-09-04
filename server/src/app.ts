@@ -26,7 +26,7 @@ import { RatingController } from './WebAPI/controllers/RatingController';
 import { ITriviaRepository } from './Domain/repositories/trivia/ITriviaRepository';
 import { TriviaRepository } from './Database/repositories/trivia/TriviaRepository';
 import { AdminController } from './WebAPI/controllers/AdminController';
-import { validateContent } from './Middlewares/validation/ContentValidation';
+import { validateContent } from './MiddleWares/validation/ContentValidation';
 
 require('dotenv').config();
 
