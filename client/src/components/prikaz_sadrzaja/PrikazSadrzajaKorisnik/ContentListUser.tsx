@@ -5,13 +5,16 @@ import '../PrikazSadrzajaGeneral/ContentList.css';
 import { FaSearch } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../hooks/useAuthHook";
+import { FaTrash } from "react-icons/fa";
 
 
 interface PrikazProps {
   contentApi: IContentAPIService;
+  isAdmin?: boolean;
+  onDelete?: (id: number) => void;
 }
 
-export function ContentListUser({ contentApi }: PrikazProps) {
+export function ContentListUser({ contentApi, isAdmin = false, onDelete }: PrikazProps) {
   const [contents, setContent] = useState<ContentDto[]>([]);
   const [search, setSearch] = useState("");
   const [tip, setTip] = useState("");
@@ -49,7 +52,7 @@ export function ContentListUser({ contentApi }: PrikazProps) {
 
   return (
     <div className="content-page">
-  {isAuthenticated && <button className="logout-button" onClick={handleLogoutClick}>Odjavi se</button>}
+      {isAuthenticated && <button className={`logout-button ${isAdmin ? "hidden-admin" : ""}`} onClick={handleLogoutClick}>Odjavi se</button>}
 
   <div className="content-main">
     <div className="filter-controls">
@@ -82,12 +85,20 @@ export function ContentListUser({ contentApi }: PrikazProps) {
 
     <div className="cards-grid">
       {contents.map(content => (
-        <div key={content.content_id} className="card" onClick={() => navigate(`/content/${content.content_id}`)}>
-          <img src={`/${content.cover_slika}`} alt={content.naziv} />
-          <div className="card-info">
-            <h3>{content.naziv}</h3>
-            <p>{content.zanr}</p>
+        <div key={content.content_id} className="card">
+          <div onClick={() => navigate(`/content/${content.content_id}`)}>
+            <img src={`/${content.cover_slika}`} alt={content.naziv} />
+            <div className="card-info">
+              <h3>{content.naziv}</h3>
+              <p>{content.zanr}</p>
+            </div>
           </div>
+
+          {isAdmin && onDelete && (
+            <button onClick={() => onDelete(content.content_id)} style={{ marginTop: "5px", background: "none", border: "none", cursor: "pointer", color: "red", fontSize: "18px" }} title="Obriši">
+              <FaTrash />
+            </button>
+          )}
         </div>
       ))}
     </div>

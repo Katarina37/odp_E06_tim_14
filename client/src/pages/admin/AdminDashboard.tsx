@@ -8,7 +8,7 @@ import "../../components/admin/Admin.css";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuthHook";
 
-import { FaTrash } from "react-icons/fa";
+import ContentListUser from "../../components/prikaz_sadrzaja/PrikazSadrzajaKorisnik/ContentListUser";
 
 
 
@@ -51,19 +51,7 @@ export default function AdminDashboard(){
           <AdminContentForm onCreated={() => { load(); setShowForm(false); }} />
         ) : (
           <>
-            <h2>Postojeći sadržaj</h2>
-            <div className="content-grid">
-              {contents.map(c => (
-                <div key={c.content_id} className="content-card">
-                  <img src={`/${c.cover_slika}`} alt={c.naziv} className="card-image"/>
-                  <div className="card-info">
-                    <h3>{c.naziv}</h3>
-                    <p>{c.zanr}</p>
-                    <button onClick={() => handleDelete(c.content_id)}><FaTrash /></button>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <ContentListUser contentApi={contentApi} isAdmin onDelete={handleDelete}/>
           </>
         )}
       </div>

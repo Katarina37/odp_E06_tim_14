@@ -265,4 +265,6 @@
   margin-top: 40px;
 }
 
-
+.hidden-admin{
+  display: none;
+}
