@@ -73,7 +73,7 @@
 }
 
 .login-page {
-  background-image: url('Images/PozadinaForma.jpg');
+  background-image: url("/Images/PozadinaForma.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

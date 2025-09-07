@@ -25,7 +25,6 @@ import { OcjenaService } from './Services/ratings/OcjenaService';
 import { RatingController } from './WebAPI/controllers/RatingController';
 import { ITriviaRepository } from './Domain/repositories/trivia/ITriviaRepository';
 import { TriviaRepository } from './Database/repositories/trivia/TriviaRepository';
-import { AdminController } from './WebAPI/controllers/AdminController';
 import { validateContent } from './MiddleWares/validation/ContentValidation';
 
 require('dotenv').config();
@@ -54,14 +53,14 @@ const userController = new UserController(userService);
 const contentController = new ContentController(contentService, ocjenaService);
 const episodeController = new EpisodeController(episodeService);
 const ocjenaController = new RatingController(ocjenaService);
-const adminController = new AdminController(contentService as ContentService);
+
 // Registering routes
 app.use('/api/v1', authController.getRouter());
 app.use('/api/v1', userController.getRouter());
 app.use('/api/v1', contentController.getRouter());
 app.use('/api/v1', episodeController.getRouter());
 app.use('/api/v1', ocjenaController.getRouter());
-app.use('/api/v1', adminController.getRouter());
+
 
 app.post('/api/v1/test-validation', validateContent, (req: Request, res: Response) => {
     res.json({success: true, message: "Podaci su validni", data: req.body});

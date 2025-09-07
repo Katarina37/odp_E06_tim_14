@@ -108,7 +108,9 @@ export class ContentService implements IContentService {
         try {
             const newContent = await this.contentRepository.create(content);
 
-            if (!newContent.content_id) throw new Error("Failed to create content");
+            if (!newContent.content_id) {
+                return new Content();
+            }
 
             for (const triviaOpis of triviaList) {
                 await this.triviaRepository.create(new Trivia(0, newContent.content_id, triviaOpis));
@@ -124,14 +126,16 @@ export class ContentService implements IContentService {
             return newContent;
         } catch (err) {
             console.error(err);
-            throw new Error("Failed to create content.");
+            return new Content();
         }
     }
 
     async updateContent(content: Content, triviaList: string[], epizode: Epizoda[]): Promise<Content> {
         try {
             const updatedContent = await this.contentRepository.update(content);
-            if (!updatedContent.content_id) throw new Error("Failed to update content.");
+            if (!updatedContent.content_id) {
+                return new Content();
+            }
 
            
             await this.triviaRepository.deleteForContent(content.content_id);
@@ -153,7 +157,7 @@ export class ContentService implements IContentService {
             return updatedContent;
         } catch (err) {
             console.error(err);
-            throw new Error("Failed to update content.");
+           return new Content();
         }
     }
 

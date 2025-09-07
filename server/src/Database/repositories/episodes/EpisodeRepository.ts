@@ -11,8 +11,8 @@ export class EpisodeRepository implements IEpisodeRepository {
             const query = 
             `SELECT *
             FROM epizode 
-            WHERE episode_id = ? 
-            `;
+            WHERE episode_id = ? AND content_id = ?
+           `;
 
             const [rows] = await db.execute<RowDataPacket[]>(query, [episode_id, content_id]);
 

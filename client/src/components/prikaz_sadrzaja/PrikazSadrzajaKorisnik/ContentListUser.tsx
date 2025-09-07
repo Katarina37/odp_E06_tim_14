@@ -54,9 +54,9 @@ export function ContentListUser({ contentApi, isAdmin = false, onDelete, onAdd }
 
   return (
      <div className="content-page">
-      {isAuthenticated && (
+       {isAuthenticated && (
         <button
-          className={`logout-button ${isAdmin ? "hidden-admin" : ""}`}
+          className={`logout-button`}
           onClick={handleLogoutClick}
         >
           Odjavi se
@@ -65,7 +65,7 @@ export function ContentListUser({ contentApi, isAdmin = false, onDelete, onAdd }
 
       <div className="content-main">
         <div className="filter-controls">
-          <h3 className="filter-title">Filteri i sortiranje</h3>
+          <h3 className="filter-title">Filteri</h3>
 
           <label className="filter-label">Pretraga:</label>
           <div className="search-wrapper">
@@ -123,7 +123,7 @@ export function ContentListUser({ contentApi, isAdmin = false, onDelete, onAdd }
 
           {contents.map((content) => (
             <div key={content.content_id} className="card">
-              <div onClick={() => navigate(`/content/${content.content_id}`)}>
+              <div onClick={() => navigate(`/content/${content.content_id}`, { state: { isAdmin } } ) }>
                 <img src={`/${content.cover_slika}`} alt={content.naziv} />
                 <div className="card-info">
                   <h3>{content.naziv}</h3>

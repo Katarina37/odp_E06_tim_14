@@ -8,7 +8,7 @@ export default function PrikazSadrzajaStranica( { contentApi } : PrikazSadrzajaS
 
     return (
          <div className="min-h-screen bg-gray-100">
-            <ContentList contentApi={contentApi} />
+            <ContentList contentApi={contentApi}  />
           </div>
     );
 }

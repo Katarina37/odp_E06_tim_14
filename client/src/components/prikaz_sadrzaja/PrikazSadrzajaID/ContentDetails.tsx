@@ -5,7 +5,7 @@ import type { OcjenaDto } from "../../../models/ratings/OcjenaDto";
 import '../PrikazSadrzajaGeneral/ContentList.css';
 import './OcjenaPrikaz.css';
 import { PročitajVrijednostPoKljuču } from "../../../helpers/local_storage";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, useNavigate, Link, useLocation } from "react-router-dom";
 import { ocjenaApi } from "../../../api_services/ratings/OcjenaAPIService";
 
 
@@ -15,6 +15,8 @@ interface ContentDetailsProps {
 }
 
 export function ContentDetails( { contentApi} : ContentDetailsProps) {
+    const location = useLocation();
+    const { isAdmin } = location.state || { isAdmin: false };
     const params  = useParams<{ content_id?: string }>();
     const id = params.content_id ? parseInt(params.content_id, 10) : undefined;
     const [contents, setContent ] = useState<ContentDto | null>(null);
@@ -22,7 +24,8 @@ export function ContentDetails( { contentApi} : ContentDetailsProps) {
     const [ ocjenaNova, setOcjena ] = useState<number>(1);
     const navigate = useNavigate();
 
-    const idToken = PročitajVrijednostPoKljuču("authToken");
+
+    const idToken = PročitajVrijednostPoKljuču("authToken"); 
 
     useEffect(() => {
         if(!id)  return;
@@ -47,6 +50,11 @@ export function ContentDetails( { contentApi} : ContentDetailsProps) {
     const handleClick = () => {
         if(!idToken){
             navigate("/content");
+            return;
+        } 
+        if(isAdmin) {
+            navigate("/content/administrator");
+            return;
         }
         navigate("/content/korisnik");
     };

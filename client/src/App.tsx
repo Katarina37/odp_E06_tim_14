@@ -2,7 +2,6 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { authApi } from "./api_services/auth/AuthAPIService";
 import PrijavaStranica from "./pages/auth/PrijavaStranica";
 import RegistracijaStranica from "./pages/auth/RegistracijaStranica";
-//import { usersApi } from "./api_services/users/UsersAPIService";
 import PrikazSadrzajaStranica from "./pages/contents/PrikazSadrzajaStranica";
 import { contentApi } from "./api_services/contents/ContentAPIService";
 import { ProtectedRoute } from "./components/protected_route/ProtectedRoute";
