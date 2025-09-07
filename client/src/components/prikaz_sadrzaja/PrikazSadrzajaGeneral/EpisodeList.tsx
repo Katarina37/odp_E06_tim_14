@@ -66,7 +66,7 @@ export function EpisodeList( { episodeApi}: PrikazEpProps) {
                 return (
                     <div key={sezona} className="season-block">
                         <div className="season-header">
-                            <h2> Sezona {sezona}</h2>
+                            <h2 style={{ paddingLeft: "30px" }}> Sezona {sezona}</h2>
                             <button className="toggle-button" onClick={() => toggleSeasonVisibility(sezona)}>{isVisible ? "Sakrij epizode" : "Prikazi epizode"}</button>
                         </div>
 

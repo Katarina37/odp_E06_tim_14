@@ -44,7 +44,11 @@ export default function AdminDashboard(){
     return(
     <div className="admin-dashboard">
         <div className="admin-header">
+          {showForm && (
+            <button className="btn-gray" onClick={() => setShowForm(false)}style={{backgroundColor:"#eab308", fontWeight:"bold"}}>Odustani</button>
+          )}
           <button className="btn-red" onClick={handleLogout}>Odjavi se</button>
+
         </div>
 
         {showForm ? (

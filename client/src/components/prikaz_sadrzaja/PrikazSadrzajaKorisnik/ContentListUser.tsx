@@ -53,76 +53,114 @@ export function ContentListUser({ contentApi, isAdmin = false, onDelete, onAdd }
   }, [tip, search, sortBy, sortOrder]);
 
   return (
-    <div className="content-page">
-      {isAuthenticated && <button className={`logout-button ${isAdmin ? "hidden-admin" : ""}`} onClick={handleLogoutClick}>Odjavi se</button>}
+     <div className="content-page">
+      {isAuthenticated && (
+        <button
+          className={`logout-button ${isAdmin ? "hidden-admin" : ""}`}
+          onClick={handleLogoutClick}
+        >
+          Odjavi se
+        </button>
+      )}
 
-  <div className="content-main">
-    <div className="filter-controls">
-      <div className="search-wrapper">
-        <FaSearch className="search-icon" />
-        <input
-          type="text"
-          placeholder="Pretrazi"
-          className="search-input"
-          value={search}
-          onChange={e => setSearch(e.target.value)}
-        />
-      </div>
-      <select value={tip} onChange={e => setTip(e.target.value)}>
-        <option value="">Svi tipovi</option>
-        <option value="film">Film</option>
-        <option value="serija">Serija</option>
-      </select>
-      <select value={sortBy} onChange={e => setSortBy(e.target.value as "naziv" | "prosjecna_ocjena" | "")}>
-        <option value="">Sortiraj po</option>
-        <option value="naziv">Naziv</option>
-        <option value="prosjecna_ocjena">Prosečna ocena</option>
-      </select>
-      <select value={sortOrder} onChange={e => setSortOrder(e.target.value as "asc" | "desc" | "")}>
-        <option value="">Redosled</option>
-        <option value="asc">Rastuće</option>
-        <option value="desc">Opadajuće</option>
-      </select>
-    </div>
+      <div className="content-main">
+        <div className="filter-controls">
+          <h3 className="filter-title">Filteri i sortiranje</h3>
 
-    <div className="cards-grid">
-      {isAdmin && onAdd && search.trim() === "" && tip === "" &&(
-    <div
-      className="card add-card"
-      onClick={() => onAdd()}
-    >
-      <span className="add-icon"> <FaPlusCircle /></span>
-    </div>
-    )}
-      {contents.map(content => (
-        <div key={content.content_id} className="card">
-          <div onClick={() => navigate(`/content/${content.content_id}`)}>
-            <img src={`/${content.cover_slika}`} alt={content.naziv} />
-            <div className="card-info">
-              <h3>{content.naziv}</h3>
-              <p>{content.zanr}</p>
-            </div>
+          <label className="filter-label">Pretraga:</label>
+          <div className="search-wrapper">
+            <FaSearch className="search-icon" />
+            <input
+              type="text"
+              placeholder="Pretraži sadržaj..."
+              className="search-input"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
           </div>
 
-          {isAdmin && onDelete && (
-            <button onClick={() => onDelete(content.content_id)} style={{ marginTop: "5px", background: "none", border: "none", cursor: "pointer", color: "red", fontSize: "18px" }} title="Obriši">
-              <FaTrash />
-            </button>
-          )}
+          <label className="filter-label">Tip sadržaja:</label>
+          <select value={tip} onChange={(e) => setTip(e.target.value)}>
+            <option value="">Svi tipovi</option>
+            <option value="film">Film</option>
+            <option value="serija">Serija</option>
+          </select>
+
+          <label className="filter-label">Sortiraj po:</label>
+          <select
+            value={sortBy}
+            onChange={(e) =>
+              setSortBy(e.target.value as "naziv" | "prosjecna_ocjena" | "")
+            }
+          >
+            <option value="">Odaberi...</option>
+            <option value="naziv">Naziv</option>
+            <option value="prosjecna_ocjena">Prosječna ocjena</option>
+          </select>
+
+          <label className="filter-label">Redoslijed:</label>
+          <select
+            value={sortOrder}
+            onChange={(e) =>
+              setSortOrder(e.target.value as "asc" | "desc" | "")
+            }
+          >
+            <option value="">Odaberi...</option>
+            <option value="asc">Rastuće</option>
+            <option value="desc">Opadajuće</option>
+          </select>
         </div>
-      ))}
-    </div>
 
-    {contents.length === 0 && search.trim() !== "" && (
-      <div className="no-results" style={{ textAlign: 'center', width: '100%', marginTop: '20px' }}>
-       Nema rezultata za "{search}"
+        {/* Kartice */}
+        <div className="cards-grid">
+          {isAdmin && onAdd && search.trim() === "" && tip === "" && (
+            <div className="card add-card" onClick={() => onAdd()}>
+              <span className="add-icon">
+                <FaPlusCircle />
+              </span>
+            </div>
+          )}
+
+          {contents.map((content) => (
+            <div key={content.content_id} className="card">
+              <div onClick={() => navigate(`/content/${content.content_id}`)}>
+                <img src={`/${content.cover_slika}`} alt={content.naziv} />
+                <div className="card-info">
+                  <h3>{content.naziv}</h3>
+                  <p>{content.zanr}</p>
+                </div>
+              </div>
+
+              {isAdmin && onDelete && (
+                <button
+                  onClick={() => onDelete(content.content_id)}
+                  style={{
+                    marginTop: "5px",
+                    background: "none",
+                    border: "none",
+                    cursor: "pointer",
+                    color: "red",
+                    fontSize: "18px",
+                  }}
+                  title="Obriši"
+                >
+                  <FaTrash />
+                </button>
+              )}
+            </div>
+          ))}
+        </div>
+
+        {contents.length === 0 && search.trim() !== "" && (
+          <div
+            className="no-results"
+            style={{ textAlign: "center", width: "100%", marginTop: "20px" }}
+          >
+            Nema rezultata za "{search}"
+          </div>
+        )}
       </div>
-    )}
-
-
-  </div>
-</div>
-
+    </div>
   );
 }
 

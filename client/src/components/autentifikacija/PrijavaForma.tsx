@@ -34,7 +34,7 @@ export function PrijavaForma({ authApi }: AuthFormProps) {
   return (
     <div className="login-page">
       <div className="prijava-forma">
-        <h1>Prijava</h1>
+        <h1 className="naslov">Prijava</h1>
         <form onSubmit={podnesiFormu}>
           <div className="input-group">
             <input

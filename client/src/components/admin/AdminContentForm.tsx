@@ -93,10 +93,10 @@ export default function AdminContentForm({onCreated} : AdminContentFormProps){
       />
 
       {tip === "serija" && (
-        <div>
+        <div style={{ backgroundColor: "#283649"}}>
           <h3>Epizode</h3>
           {epizode.map((ep, i) => (
-            <div key={i} className="episode-card">
+            <div key={i} className="episode-card" style={{ backgroundColor: "#283649", border:"none"}}>
               <input type="number" placeholder="Sezona" value={ep.sezona} onChange={e => updateEpisode(i, "sezona", +e.target.value)} />
               <input type="number" placeholder="Broj epizode" value={ep.broj_epizode} onChange={e => updateEpisode(i, "broj_epizode", +e.target.value)} />
               <input placeholder="Naziv epizode" value={ep.naziv_epizode} onChange={e => updateEpisode(i, "naziv_epizode", e.target.value)} />
@@ -117,7 +117,7 @@ export default function AdminContentForm({onCreated} : AdminContentFormProps){
               )}
             </div>
           ))}
-          <button type="button" onClick={handleAddEpisode}>Dodaj epizodu</button>
+          <button type="button" onClick={handleAddEpisode} style={{ marginBottom: "16px" }}>Dodaj epizodu</button>
         </div>
       )}
 
