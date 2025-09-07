@@ -9,11 +9,9 @@ export class EpisodeRepository implements IEpisodeRepository {
     async getById(episode_id: number, content_id: number): Promise<Epizoda> {
         try {
             const query = 
-            `SELECT e.episode_id, e.content_id, e.sezona, e.broj_epizode, e.naziv_epizode, e.opis_epizode, e.cover_slika
-            FROM epizode e
-            LEFT JOIN content c ON c.content_id = e.content_id
-            WHERE episode_id = ? AND e.content_id = ?
-            GROUP BY e.episode_id
+            `SELECT *
+            FROM epizode 
+            WHERE episode_id = ? 
             `;
 
             const [rows] = await db.execute<RowDataPacket[]>(query, [episode_id, content_id]);
@@ -34,11 +32,10 @@ export class EpisodeRepository implements IEpisodeRepository {
     async getAll(content_id: number): Promise<Epizoda[]> {
         try {
             const query = 
-            `SELECT e.episode_id, e.content_id, e.sezona, e.broj_epizode, e.naziv_epizode, e.opis_epizode, e.cover_slika
-            FROM epizode e
-            LEFT JOIN content c ON c.content_id = e.content_id
-            WHERE e.content_id = ?
-            GROUP BY e.episode_id
+            `SELECT *
+            FROM epizode 
+            WHERE content_id = ?
+            ORDER BY sezona, broj_epizode
             `;
 
             const [rows] = await db.execute<RowDataPacket[]>(query, [content_id]);

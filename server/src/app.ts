@@ -44,7 +44,7 @@ const triviaRepository: ITriviaRepository = new TriviaRepository();
 // Services
 const authService: IAuthService = new AuthService(userRepository);
 const userService: IUserService = new UserService(userRepository);
-const contentService: IContentService = new ContentService(contentRepository, triviaRepository, episodeRepository);
+const contentService: IContentService = new ContentService(contentRepository, triviaRepository, episodeRepository, ocjenaRepository);
 const episodeService: IEpisodeService = new EpisodeService(episodeRepository);
 const ocjenaService: IOcjenaService = new OcjenaService(ocjenaRepository);
 

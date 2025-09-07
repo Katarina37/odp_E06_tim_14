@@ -17,4 +17,9 @@ export interface IOcjenaRepository {
      * @param ocjena
      */
     updateOcjena(ocjena: Ocjena): Promise<Ocjena>;
+
+    /**
+     * @param content_id
+     */
+    getAverage(content_id: number): Promise<number | null>;
 }

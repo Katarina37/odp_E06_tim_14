@@ -6,15 +6,17 @@ import { FaSearch } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../hooks/useAuthHook";
 import { FaTrash } from "react-icons/fa";
+import { FaPlusCircle } from "react-icons/fa";
 
 
 interface PrikazProps {
   contentApi: IContentAPIService;
   isAdmin?: boolean;
   onDelete?: (id: number) => void;
+  onAdd?: () => void;
 }
 
-export function ContentListUser({ contentApi, isAdmin = false, onDelete }: PrikazProps) {
+export function ContentListUser({ contentApi, isAdmin = false, onDelete, onAdd }: PrikazProps) {
   const [contents, setContent] = useState<ContentDto[]>([]);
   const [search, setSearch] = useState("");
   const [tip, setTip] = useState("");
@@ -84,6 +86,14 @@ export function ContentListUser({ contentApi, isAdmin = false, onDelete }: Prika
     </div>
 
     <div className="cards-grid">
+      {isAdmin && onAdd && search.trim() === "" && tip === "" &&(
+    <div
+      className="card add-card"
+      onClick={() => onAdd()}
+    >
+      <span className="add-icon"> <FaPlusCircle /></span>
+    </div>
+    )}
       {contents.map(content => (
         <div key={content.content_id} className="card">
           <div onClick={() => navigate(`/content/${content.content_id}`)}>

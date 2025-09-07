@@ -11,9 +11,8 @@ import { useAuth } from "../../hooks/useAuthHook";
 import ContentListUser from "../../components/prikaz_sadrzaja/PrikazSadrzajaKorisnik/ContentListUser";
 
 
-
 export default function AdminDashboard(){
-    const [contents, setContents] = useState<ContentDto[]>([]);
+    const [, setContents] = useState<ContentDto[]>([]);
     const [showForm, setShowForm] = useState(false);
     const token = PročitajVrijednostPoKljuču("authToken");
     const navigate = useNavigate();
@@ -25,6 +24,10 @@ export default function AdminDashboard(){
     };
 
     useEffect(() => {load();}, []);
+
+    const handleAddContent = () => {
+      setShowForm(true);
+    }
 
     const handleDelete = async (id: number) => {
         if(!token) return;
@@ -41,9 +44,6 @@ export default function AdminDashboard(){
     return(
     <div className="admin-dashboard">
         <div className="admin-header">
-          <button className="btn-yellow" onClick={() => setShowForm(!showForm)}>
-            {showForm ? "Zatvori" : "Dodaj"}
-          </button>
           <button className="btn-red" onClick={handleLogout}>Odjavi se</button>
         </div>
 
@@ -51,7 +51,7 @@ export default function AdminDashboard(){
           <AdminContentForm onCreated={() => { load(); setShowForm(false); }} />
         ) : (
           <>
-            <ContentListUser contentApi={contentApi} isAdmin onDelete={handleDelete}/>
+            <ContentListUser contentApi={contentApi} isAdmin onDelete={handleDelete} onAdd={handleAddContent}/>
           </>
         )}
       </div>

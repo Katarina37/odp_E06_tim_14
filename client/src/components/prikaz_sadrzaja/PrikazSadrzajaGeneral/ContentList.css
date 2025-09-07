@@ -71,6 +71,17 @@
   transition: transform 0.2s ease;
 }
 
+.add-card {
+  border: 2px dashed #999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: #0cde33;
+  background-color: transparent;
+}
+
+
 .card img {
   width: 100%;
   height: 250px;

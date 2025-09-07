@@ -25,14 +25,14 @@ function App() {
       <Route path="/content/:content_id/episodes/:episode_id" element={<PrikazDetaljaEpStranica episodeApi={episodeApi} />} />
       
       <Route path="/content/korisnik" element={
-        <ProtectedRoute requiredRole="korisnik">
+        <ProtectedRoute requiredRole={["korisnik", "administrator"]}>
           <PrikazKorisnikStranica contentApi={contentApi} />
         </ProtectedRoute>
       }
       />
 
       <Route path="/content/administrator" element={
-        <ProtectedRoute requiredRole="administrator">
+        <ProtectedRoute requiredRole={["administrator"]}>
           <AdminDashboard />
         </ProtectedRoute>
       }/>

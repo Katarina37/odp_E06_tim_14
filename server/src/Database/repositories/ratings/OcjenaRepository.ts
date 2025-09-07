@@ -72,4 +72,26 @@ export class OcjenaRepository implements IOcjenaRepository {
             return new Ocjena();
         }
     }
+
+    async getAverage(content_id: number): Promise<number | null> {
+    try {
+        const query = `
+            SELECT AVG(ocjena) as avgOcjena
+            FROM ocjena
+            WHERE content_id = ?
+        `;
+
+        const [rows] = await db.execute<RowDataPacket[]>(query, [content_id]);
+
+        if (rows.length > 0 && rows[0].avgOcjena !== null) {
+            return Number(rows[0].avgOcjena);
+        }
+
+        return null;
+    } catch (err) {
+        console.error(err);
+        return null;
+    }
+}
+
 }

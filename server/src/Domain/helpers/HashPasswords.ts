@@ -1,5 +1,5 @@
 import bcrypt from "bcryptjs";
-import db from "../server/src/Database/connection/DbConnectionPool";
+import db from "../../Database/connection/DbConnectionPool";
 
 const saltRounds = 10;
 
